@@ -914,34 +914,22 @@
     }
 
     /* ===== MINI-JOSAN AVATAR ===== */
+    /* fija a la izquierda desde la primera sección — sin balanceo,
+       solo el parpadeo del halo (igual que el botón de WhatsApp) */
     .mini-josan {
       position: fixed;
       bottom: 18px;
-      left: 50%;
+      left: 20px;
       width: 60px;
       height: 60px;
       z-index: 999;
       cursor: pointer;
-      animation: sway 16s infinite ease-in-out;
-      transition: left 0.6s cubic-bezier(.2,.8,.2,1), transform 0.6s cubic-bezier(.2,.8,.2,1);
     }
     @media (min-width: 640px) {
       .mini-josan { bottom: 26px; }
     }
-
-    @keyframes sway {
-      0%, 100% { transform: translateX(-50%) translateX(-170px); }
-      50% { transform: translateX(-50%) translateX(170px); }
-    }
-
-    /* aparcado en la esquina inferior izquierda mientras se hace scroll por las secciones centrales */
-    .mini-josan.docked {
-      left: 20px;
-      animation: none;
-      transform: translateX(0);
-    }
     @media (max-width: 640px) {
-      .mini-josan.docked { left: 14px; }
+      .mini-josan { left: 14px; }
     }
 
     .mini-josan img {
@@ -950,7 +938,6 @@
       object-fit: cover;
       border-radius: 50%;
       display: block;
-      animation: breathe 2.4s infinite ease-in-out;
     }
 
     @keyframes breathe {
@@ -1338,7 +1325,7 @@
   </div>
 
   <!-- Mini-Josan Avatar -->
-  <div class="mini-josan" id="miniJosan">
+  <div class="mini-josan docked" id="miniJosan">
     <div class="speech-bubble" id="speechBubble">
       ¿<span>HABLAMOS?</span> PREGÚNTAME SOBRE MÍ →
     </div>
@@ -2545,14 +2532,17 @@
       }
     }
 
-    // ── WHATSAPP FLOAT: parar justo encima del footer ──
-    const waFloat  = document.getElementById('wa-float');
-    const footerEl = document.querySelector('footer');
+    // ── WHATSAPP FLOAT + MINI-JOSAN: parar justo encima del footer ──
+    const waFloat   = document.getElementById('wa-float');
+    const footerEl  = document.querySelector('footer');
+    const miniFloat = document.getElementById('miniJosan');
     function positionWa() {
-      if (!waFloat || !footerEl) return;
+      if (!footerEl) return;
       const base = window.innerWidth >= 640 ? 26 : 18;
       const overlap = window.innerHeight - footerEl.getBoundingClientRect().top;
-      waFloat.style.bottom = overlap > 0 ? (overlap + 12) + 'px' : base + 'px';
+      const bottomPx = overlap > 0 ? (overlap + 12) + 'px' : base + 'px';
+      if (waFloat)   waFloat.style.bottom   = bottomPx;
+      if (miniFloat) miniFloat.style.bottom = bottomPx;
     }
     window.addEventListener('scroll', positionWa, { passive:true });
     window.addEventListener('resize', positionWa);
@@ -2948,22 +2938,9 @@
     setTimeout(bubbleLoop, 1500);
     setInterval(bubbleLoop, 12000);
 
-    // ===== DOCK EN ESQUINA AL HACER SCROLL =====
-    // Centrado (con vaivén) solo en la primera sección (#inicio).
-    // Aparcado a la izquierda en el resto de secciones para no estorbar.
-    const miniJosanEl = document.getElementById('miniJosan');
-    const edgeSections = ['inicio']
-      .map(id => document.getElementById(id))
-      .filter(Boolean);
-    const visibleEdges = new Set();
-    const dockObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) visibleEdges.add(entry.target);
-        else visibleEdges.delete(entry.target);
-      });
-      miniJosanEl.classList.toggle('docked', visibleEdges.size === 0);
-    }, { threshold: 0.25 });
-    edgeSections.forEach(sec => dockObserver.observe(sec));
+    // ===== POSICIÓN FIJA =====
+    // El avatar permanece fijo a la izquierda desde la primera sección
+    // (clase .docked siempre activa en el HTML); solo parpadea el halo.
 
     // ===== CHAT LOGIC =====
     const miniJosan = document.getElementById('miniJosan');
