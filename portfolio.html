@@ -56,6 +56,10 @@
     /* ── PROFILE PHOTO (bloque cuadrado, fijo) ── */
     .profile-photo-wrapper {
       position:relative; display:block; width:100%; height:100%;
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(4px);
+      border-radius:16px;
+      padding:12px;
     }
     .profile-photo-wrapper img {
       width:100%; height:100%; display:block; object-fit:cover; object-position:center top;
@@ -3115,6 +3119,12 @@
 
     chatSend.addEventListener('click', sendFreeText);
     chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendFreeText(); });
+
+    /* Evita que el chat se oculte al abrir el teclado virtual en móvil */
+    document.getElementById('chatInput').addEventListener('focus', function() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    });
   })();
   </script>
 
