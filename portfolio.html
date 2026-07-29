@@ -56,10 +56,6 @@
     /* ── PROFILE PHOTO (bloque cuadrado, fijo) ── */
     .profile-photo-wrapper {
       position:relative; display:block; width:100%; height:100%;
-      background:rgba(255,255,255,0.08);
-      backdrop-filter:blur(4px);
-      border-radius:16px;
-      padding:12px;
     }
     .profile-photo-wrapper img {
       width:100%; height:100%; display:block; object-fit:cover; object-position:center top;
@@ -3136,6 +3132,11 @@
                        || document.getElementById('inicio');
       const wrapper = document.getElementById('josanWrapper');
       if (!wrapper) return;
+      // Con el chat abierto nunca se oculta: el teclado virtual dispara scroll
+      if (wrapper.classList.contains('open')) {
+        wrapper.style.display = 'flex';
+        return;
+      }
       if (section1) {
         const rect = section1.getBoundingClientRect();
         if (rect.bottom < 0) {
