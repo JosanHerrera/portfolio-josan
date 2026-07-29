@@ -913,410 +913,323 @@
       #sticky-nav .snav-burger { display: flex; }
     }
 
-    /* ===== MINI-JOSAN AVATAR ===== */
-    /* fija a la izquierda desde la primera sección — sin balanceo,
-       solo el parpadeo del halo (igual que el botón de WhatsApp) */
-    .mini-josan {
-      position: fixed;
-      bottom: 18px;
-      left: 20px;
-      width: 60px;
-      height: 60px;
-      z-index: 999;
-      cursor: pointer;
-    }
-    @media (min-width: 640px) {
-      .mini-josan { bottom: 26px; }
-    }
-    @media (max-width: 640px) {
-      .mini-josan { left: 14px; }
-    }
+  /* ===== WRAPPER — pestaña + chat ===== */
+  .josan-ia-wrapper {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+  }
 
-    .mini-josan img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-      display: block;
-    }
+  /* ===== PESTAÑA LATERAL ===== */
+  .josan-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 42px;
+    padding: 26px 0;
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(8px);
+    border-radius: 0 16px 16px 0;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-left: none;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+    transition: background 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
 
-    @keyframes breathe {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
+  .josan-tab::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 0 16px 16px 0;
+    padding: 1px;
+    background: linear-gradient(180deg,
+      rgba(255,255,255,0.2) 0%,
+      rgba(255,255,255,0.04) 40%,
+      rgba(255,255,255,0.04) 60%,
+      rgba(255,255,255,0.2) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
 
-    .mini-josan::after {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      pointer-events: none;
-      animation: miniGlow 1.5s ease-in-out infinite;
-    }
-    @keyframes miniGlow {
-      0%,100% { box-shadow: 0 0 0 2px rgba(255,107,43,0.35), 0 0 14px rgba(255,107,43,0.4); }
-      50%     { box-shadow: 0 0 0 3px rgba(255,107,43,0.75), 0 0 32px rgba(255,107,43,0.95); transform: scale(1.04); }
-    }
-    /* anillo que se expande (estilo propio, no igual al de WhatsApp) */
-    .mini-josan::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      border: 2px solid rgba(255,107,43,0.6);
-      pointer-events: none;
-      z-index: -1;
-      animation: miniRing 2s ease-out infinite;
-    }
-    @keyframes miniRing {
-      0%   { transform: scale(1);   opacity: 0.75; }
-      100% { transform: scale(1.85); opacity: 0; }
-    }
-    @keyframes pulse {
-      0%,100% { opacity: 0.6; }
-      50% { opacity: 1; }
-    }
+  .josan-tab:hover {
+    background: rgba(255,107,43,0.06);
+    box-shadow: 4px 0 24px rgba(255,107,43,0.15);
+  }
 
-    .mini-josan .online-dot {
-      position: absolute;
-      bottom: -2px;
-      right: -2px;
-      width: 14px;
-      height: 14px;
-      background: #FF6B2B;
-      border: 2px solid #0A0A0F;
-      border-radius: 50%;
-      z-index: 2;
-      box-shadow: 0 0 8px rgba(255,107,43,0.6);
-    }
+  /* Punto online pulsante */
+  .tab-dot {
+    width: 8px;
+    height: 8px;
+    background: #FF6B2B;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(255,107,43,0.6);
+    animation: tabPulse 2s infinite;
+    flex-shrink: 0;
+  }
+  @keyframes tabPulse {
+    0%,100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
+  }
 
-    /* ===== GLOBO DE DIÁLOGO ===== */
-    .speech-bubble {
-      position: absolute;
-      bottom: 70px;
-      left: 50%;
-      transform: translateX(-50%) scale(0);
-      transform-origin: bottom center;
-      background: rgba(255,255,255,0.04);
-      backdrop-filter: blur(6px);
-      border-radius: 14px;
-      padding: 10px 16px;
-      white-space: nowrap;
-      font-size: 10px;
-      color: #F0EDE6;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      box-shadow: inset 0 1px 1px rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.4);
-      opacity: 0;
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      pointer-events: none;
-    }
-    .speech-bubble::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 14px;
-      padding: 1px;
-      background: linear-gradient(180deg, rgba(255,107,43,0.4), rgba(255,107,43,0.05));
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-    }
-    .speech-bubble::after {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0; height: 0;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-top: 6px solid rgba(255,255,255,0.06);
-    }
-    .speech-bubble.show {
-      opacity: 1;
-      transform: translateX(-50%) scale(1);
-    }
-    .speech-bubble span { color: #FF6B2B; }
+  .tab-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+    color: #F0EDE6;
+    line-height: 1;
+  }
+  .tab-text span { color: #FF6B2B; font-weight: 700; text-shadow: 0 0 8px rgba(255,107,43,0.5); }
 
-    /* cuando el muñeco está aparcado en la esquina, el globo sale a su derecha */
-    .mini-josan.docked .speech-bubble {
-      bottom: auto;
-      top: 50%;
-      left: 72px;
-      transform: translateY(-50%) scale(0);
-      transform-origin: left center;
-    }
-    .mini-josan.docked .speech-bubble.show {
-      transform: translateY(-50%) scale(1);
-    }
-    .mini-josan.docked .speech-bubble::after {
-      bottom: auto;
-      top: 50%;
-      left: -6px;
-      transform: translateY(-50%);
-      border-left: 0;
-      border-right: 6px solid rgba(255,255,255,0.06);
-      border-top: 6px solid transparent;
-      border-bottom: 6px solid transparent;
-    }
+  /* Flecha */
+  .tab-arrow {
+    font-size: 12px;
+    color: rgba(240,237,230,0.25);
+    line-height: 1;
+    transition: transform 0.3s, color 0.2s;
+  }
+  .josan-ia-wrapper.open .tab-arrow { transform: rotate(180deg); color: #FF6B2B; }
 
-    /* ===== CHAT WINDOW ===== */
-    .chat-window {
-      position: fixed;
-      bottom: 100px;
-      left: 24px;
-      width: 320px;
-      max-width: calc(100vw - 48px);
-      height: 500px;
-      background: rgba(8,8,14,0.92);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      box-shadow: inset 0 1px 1px rgba(255,255,255,0.08), 0 24px 60px rgba(0,0,0,0.7);
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(20px) scale(0.96);
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .chat-window::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 20px;
-      padding: 1.2px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.04) 40%, rgba(255,255,255,0.04) 60%, rgba(255,255,255,0.25) 100%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-      z-index: 5;
-    }
-    .chat-window.open {
-      opacity: 1;
-      pointer-events: all;
-      transform: translateY(0) scale(1);
-    }
-
-    .chat-header {
-      padding: 14px 16px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .chat-header-title {
-      font-family: 'Anton', sans-serif;
-      font-size: 13px;
-      color: #F0EDE6;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .chat-header-title .dot {
-      width: 8px; height: 8px;
-      background: #FF6B2B;
-      border-radius: 50%;
-      box-shadow: 0 0 8px rgba(255,107,43,0.6);
-      animation: pulse 1.5s infinite;
-    }
-    .chat-close {
-      background: none;
-      border: none;
-      color: rgba(240,237,230,0.4);
-      font-size: 10px;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      transition: color 0.2s;
-    }
-    .chat-close:hover { color: #F0EDE6; }
-
-    .chat-body {
-      flex: 1;
-      overflow-y: auto;
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .chat-body::-webkit-scrollbar { width: 4px; }
-    .chat-body::-webkit-scrollbar-thumb { background: rgba(255,107,43,0.3); border-radius: 4px; }
-
-    .chat-msg {
-      font-size: 11px;
-      line-height: 1.6;
-      padding: 10px 12px;
-      border-radius: 12px;
-      max-width: 85%;
-      animation: fadeIn 0.3s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .chat-msg.ai {
-      background: rgba(255,107,43,0.08);
-      border: 1px solid rgba(255,107,43,0.15);
-      color: #F0EDE6;
-      align-self: flex-start;
-      border-bottom-left-radius: 2px;
-    }
-    .chat-msg.ai .prefix {
-      color: #FF6B2B;
-      font-weight: 700;
-      margin-right: 4px;
-    }
-    .chat-msg.user {
-      background: rgba(255,255,255,0.06);
-      color: #F0EDE6;
-      align-self: flex-end;
-      border-bottom-right-radius: 2px;
-    }
-
-    .chat-msg.typing {
-      display: flex;
-      gap: 4px;
-      align-items: center;
-      padding: 12px 14px;
-    }
-    .chat-msg.typing span {
-      width: 5px; height: 5px;
-      background: #FF6B2B;
-      border-radius: 50%;
-      animation: blink 1.2s infinite;
-    }
-    .chat-msg.typing span:nth-child(2) { animation-delay: 0.2s; }
-    .chat-msg.typing span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes blink {
-      0%,100% { opacity: 0.2; transform: translateY(0); }
-      50% { opacity: 1; transform: translateY(-3px); }
-    }
-
-    /* Preguntas sugeridas */
-    .chat-suggestions {
-      padding: 10px 14px;
-      display: flex;
-      flex-direction: column;
+  /* Bloqueo scroll body cuando chat abierto en móvil */
+  body.chat-open { overflow: hidden; }
+  @media (max-width: 768px) {
+    .josan-tab {
+      width: 34px;
+      padding: 20px 0;
       gap: 6px;
-      border-top: 1px solid rgba(255,255,255,0.06);
     }
-    .chat-suggestion-label {
+    .tab-text {
       font-size: 9px;
-      color: rgba(240,237,230,0.3);
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      margin-bottom: 2px;
+      letter-spacing: 0.08em;
     }
-    .chat-suggestion-btn {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: rgba(240,237,230,0.7);
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      text-transform: uppercase;
-      text-align: left;
-      padding: 8px 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
-      letter-spacing: 0.05em;
-    }
-    .chat-suggestion-btn:hover {
-      background: rgba(255,107,43,0.1);
-      border-color: rgba(255,107,43,0.3);
-      color: #FF6B2B;
-    }
-    .chat-suggestion-btn:disabled {
-      opacity: 0.25;
-      cursor: default;
-    }
+    .tab-dot { width: 6px; height: 6px; }
+    .tab-arrow { font-size: 10px; }
 
-    .chat-input-row {
-      display: flex;
-      gap: 8px;
-      padding: 10px 14px;
-      border-top: 1px solid rgba(255,255,255,0.06);
+    .chat-window {
+      width: calc(100vw - 40px);
+      height: 70vh;
+      max-height: 480px;
+      left: 28px;
     }
-    .chat-input {
-      flex: 1;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 10px;
-      padding: 10px 12px;
-      color: #F0EDE6;
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .chat-input::placeholder { color: rgba(240,237,230,0.25); }
-    .chat-input:focus { border-color: rgba(255,107,43,0.4); }
+  }
 
-    .chat-send-btn {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: #FF6B2B;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: opacity 0.2s, transform 0.2s;
-      box-shadow: 0 4px 16px rgba(255,107,43,0.3);
-    }
-    .chat-send-btn:hover { opacity: 0.85; transform: scale(1.05); }
-    .chat-send-btn svg {
-      width: 16px; height: 16px;
-      stroke: #0A0A0F; fill: none;
-      stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
-    }
+  /* ===== CHAT WINDOW ===== */
+  .chat-window {
+    width: 300px;
+    height: 460px;
+    background: rgba(8,8,14,0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 0 16px 16px 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 4px 0 40px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-left: none;
+    /* oculto por defecto */
+    transform: translateX(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.35s ease;
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%) translateX(-100%);
+  }
 
-    .chat-footer-note {
-      font-size: 8px;
-      color: rgba(240,237,230,0.2);
-      text-align: center;
-      padding: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      border-top: 1px solid rgba(255,255,255,0.04);
-    }
+  .josan-ia-wrapper.open .chat-window {
+    transform: translateY(-50%) translateX(0);
+    opacity: 1;
+    pointer-events: all;
+  }
 
-    /* ── CHAT RESPONSIVE: pantalla completa en móvil ── */
-    @media (max-width: 640px) {
-      .chat-window {
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        max-width: 100%;
-        height: 100vh;
-        height: 100dvh;
-        border-radius: 0;
-      }
-      .chat-window::before { border-radius: 0; }
-      .chat-window.open { transform: none; }
-      .chat-header { padding: 16px 18px; }
-      .chat-body { padding: 16px; }
-      .chat-msg { font-size: 13px; line-height: 1.55; max-width: 90%; }
-      .chat-suggestions { padding: 12px 16px; }
-      .chat-suggestion-btn { font-size: 12px; padding: 11px 12px; }
-      .chat-input-row { padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); }
-      /* 16px evita el zoom automático de iOS al enfocar el campo de texto */
-      .chat-input { font-size: 16px; padding: 12px 14px; }
-      .chat-send-btn { width: 44px; height: 44px; }
-      .chat-footer-note { font-size: 9px; padding: 10px; }
-    }
+  .chat-header {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .chat-header-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 13px;
+    color: #F0EDE6;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .chat-header-dot {
+    width: 7px; height: 7px;
+    background: #FF6B2B;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(255,107,43,0.6);
+    animation: tabPulse 1.5s infinite;
+  }
+  .chat-close {
+    background: none; border: none;
+    color: rgba(240,237,230,0.35);
+    font-size: 9px; cursor: pointer;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    transition: color 0.2s;
+  }
+  .chat-close:hover { color: #F0EDE6; }
+
+  .chat-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .chat-body::-webkit-scrollbar { width: 3px; }
+  .chat-body::-webkit-scrollbar-thumb { background: rgba(255,107,43,0.3); border-radius: 3px; }
+
+  .chat-msg {
+    font-size: 10px;
+    line-height: 1.6;
+    padding: 9px 11px;
+    border-radius: 10px;
+    max-width: 88%;
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .chat-msg.ai {
+    background: rgba(255,107,43,0.08);
+    border: 1px solid rgba(255,107,43,0.15);
+    color: #F0EDE6;
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+  }
+  .chat-msg.ai .prefix { color: #FF6B2B; font-weight: 700; margin-right: 4px; }
+  .chat-msg.user {
+    background: rgba(255,255,255,0.06);
+    color: #F0EDE6;
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+  }
+  .chat-msg.typing {
+    display: flex; gap: 4px; align-items: center;
+    padding: 10px 12px;
+  }
+  .chat-msg.typing span {
+    width: 5px; height: 5px;
+    background: #FF6B2B; border-radius: 50%;
+    animation: blink 1.2s infinite;
+  }
+  .chat-msg.typing span:nth-child(2) { animation-delay: 0.2s; }
+  .chat-msg.typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink {
+    0%,100% { opacity: 0.2; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(-3px); }
+  }
+
+  .chat-suggestions {
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    flex-shrink: 0;
+  }
+  .chat-suggestion-label {
+    font-size: 8px;
+    color: rgba(240,237,230,0.25);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 2px;
+  }
+  .chat-suggestion-btn {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: rgba(240,237,230,0.65);
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 7px 9px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+  .chat-suggestion-btn:hover {
+    background: rgba(255,107,43,0.1);
+    border-color: rgba(255,107,43,0.3);
+    color: #FF6B2B;
+  }
+
+  .chat-input-row {
+    display: flex;
+    gap: 7px;
+    padding: 9px 12px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    flex-shrink: 0;
+  }
+  .chat-input {
+    flex: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 8px 10px;
+    color: #F0EDE6;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .chat-input::placeholder { color: rgba(240,237,230,0.2); }
+  .chat-input:focus { border-color: rgba(255,107,43,0.4); }
+  .chat-send-btn {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    background: #FF6B2B;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: opacity 0.2s;
+    box-shadow: 0 3px 12px rgba(255,107,43,0.3);
+  }
+  .chat-send-btn:hover { opacity: 0.85; }
+  .chat-send-btn svg {
+    width: 14px; height: 14px;
+    stroke: #0A0A0F; fill: none;
+    stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+  }
+  .chat-footer-note {
+    font-size: 7px;
+    color: rgba(240,237,230,0.15);
+    text-align: center;
+    padding: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    flex-shrink: 0;
+  }
   </style>
 </head>
 <body class="bg-[#0A0A0F] font-mono">
@@ -1351,39 +1264,42 @@
     </a>
   </div>
 
-  <!-- Mini-Josan Avatar -->
-  <div class="mini-josan docked" id="miniJosan">
-    <div class="speech-bubble" id="speechBubble">
-      ← ¿<span>HABLAMOS?</span> PREGÚNTAME SOBRE MÍ
+  <!-- ══ ASISTENTE VIRTUAL · PESTAÑA LATERAL ══ -->
+  <div class="josan-ia-wrapper" id="josanWrapper">
+    <div class="josan-tab" id="josanTab">
+      <div class="tab-dot"></div>
+      <div class="tab-text">¿SABER ALGO SOBRE MÍ? <span>CLICK AQUÍ</span></div>
+      <div class="tab-arrow">›</div>
     </div>
-    <img src="mini-josan-face2.png" alt="Josan IA">
-    <div class="online-dot"></div>
-  </div>
-
-  <!-- Chat Window -->
-  <div class="chat-window" id="chatWindow">
-    <div class="chat-header">
-      <div class="chat-header-title">
-        <div class="dot"></div>
-        JOSAN-IA
+    <div class="chat-window" id="chatWindow">
+      <div class="chat-header">
+        <div class="chat-header-title">
+          <div class="chat-header-dot"></div>
+          JOSAN-IA
+        </div>
+        <button class="chat-close" id="chatClose">✕ CERRAR</button>
       </div>
-      <button class="chat-close" id="chatClose">✕ CERRAR</button>
+      <div class="chat-body" id="chatBody"></div>
+      <div class="chat-suggestions" id="chatSuggestions">
+        <div class="chat-suggestion-label">PREGUNTAS RÁPIDAS:</div>
+        <button class="chat-suggestion-btn" data-q="quien">¿Quién es Josan?</button>
+        <button class="chat-suggestion-btn" data-q="experiencia">¿Qué experiencia tiene?</button>
+        <button class="chat-suggestion-btn" data-q="proyectos">¿Cuáles son sus proyectos?</button>
+        <button class="chat-suggestion-btn" data-q="disponibilidad">¿Está disponible?</button>
+        <button class="chat-suggestion-btn" data-q="contacto">¿Cómo contactarle?</button>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" id="chatInput" class="chat-input"
+               placeholder="ESCRIBE TU PREGUNTA..." maxlength="200">
+        <button class="chat-send-btn" id="chatSend">
+          <svg viewBox="0 0 24 24">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+      <div class="chat-footer-note">Asistente virtual · Información sobre Josan Herrera</div>
     </div>
-    <div class="chat-body" id="chatBody"></div>
-    <div class="chat-suggestions" id="chatSuggestions">
-      <div class="chat-suggestion-label">PREGUNTAS RÁPIDAS:</div>
-      <button class="chat-suggestion-btn" data-q="experiencia">¿Qué experiencia tienes?</button>
-      <button class="chat-suggestion-btn" data-q="proyectos">Cuéntame sobre tus proyectos</button>
-      <button class="chat-suggestion-btn" data-q="disponibilidad">¿Estás disponible?</button>
-      <button class="chat-suggestion-btn" data-q="contacto">¿Cómo te contacto?</button>
-    </div>
-    <div class="chat-input-row">
-      <input type="text" id="chatInput" class="chat-input" placeholder="ESCRIBE TU PREGUNTA..." maxlength="200">
-      <button class="chat-send-btn" id="chatSend">
-        <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-      </button>
-    </div>
-    <div class="chat-footer-note">Respuestas generadas · No soy una persona real</div>
   </div>
 
   <!-- ══ GRAIN ══ -->
@@ -2103,6 +2019,29 @@
         </div>
       </div>
 
+      <!-- Carta 6: Carpintería Hijos de José Soto -->
+      <div class="proj-card" data-index="6" data-pos="-1"
+           data-title="CARPINTERÍA HIJOS DE JOSÉ SOTO"
+           data-desc="WEB PARA CARPINTERÍA FAMILIAR · NEXT.JS · TAILWIND · VERCEL · EL VISO DEL ALCOR"
+           data-tag="WEB CLIENTE · CARPINTERÍA"
+           data-url="https://carpinteria-hijos-de-jose-soto.vercel.app/"
+           data-img="img-carpinteria.jpeg">
+        <img src="img-carpinteria.jpeg" alt="Carpintería Hijos de José Soto">
+        <div class="proj-card-info">
+          <div>
+            <div class="proj-card-tag">WEB CLIENTE · CARPINTERÍA</div>
+            <div class="proj-card-title">CARPINTERÍA H. SOTO</div>
+            <div class="proj-card-desc">COCINAS, ARMARIOS Y MUEBLES A MEDIDA · EL VISO DEL ALCOR</div>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-link">VER PROYECTO →</span>
+            <div class="proj-card-arrow">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- Navegación -->
@@ -2117,6 +2056,7 @@
         <div class="carousel-dot" data-dot="3"></div>
         <div class="carousel-dot" data-dot="4"></div>
         <div class="carousel-dot" data-dot="5"></div>
+        <div class="carousel-dot" data-dot="6"></div>
       </div>
       <button class="carousel-btn" id="nextBtn" aria-label="Siguiente">
         <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -2559,17 +2499,15 @@
       }
     }
 
-    // ── WHATSAPP FLOAT + MINI-JOSAN: parar justo encima del footer ──
+    // ── WHATSAPP FLOAT: parar justo encima del footer ──
     const waFloat   = document.getElementById('wa-float');
     const footerEl  = document.querySelector('footer');
-    const miniFloat = document.getElementById('miniJosan');
     function positionWa() {
       if (!footerEl) return;
       const base = window.innerWidth >= 640 ? 26 : 18;
       const overlap = window.innerHeight - footerEl.getBoundingClientRect().top;
       const bottomPx = overlap > 0 ? (overlap + 12) + 'px' : base + 'px';
       if (waFloat)   waFloat.style.bottom   = bottomPx;
-      if (miniFloat) miniFloat.style.bottom = bottomPx;
     }
     window.addEventListener('scroll', positionWa, { passive:true });
     window.addEventListener('resize', positionWa);
@@ -2865,7 +2803,7 @@
   <!-- ══ CARRUSEL PROYECTOS ══ -->
   <script>
   (function() {
-    const TOTAL = 6;
+    const TOTAL = 7;
     let current = 0;
 
     const cards = Array.from(document.querySelectorAll('.proj-card'));
@@ -2956,82 +2894,154 @@
 
   <script>
   (function() {
-    // ===== SPEECH BUBBLE LOOP =====
-    const bubble = document.getElementById('speechBubble');
-    function bubbleLoop() {
-      bubble.classList.add('show');
-      setTimeout(() => bubble.classList.remove('show'), 3500);
-    }
-    setTimeout(bubbleLoop, 1500);
-    setInterval(bubbleLoop, 12000);
-
-    // ===== POSICIÓN FIJA =====
-    // El avatar permanece fijo a la izquierda desde la primera sección
-    // (clase .docked siempre activa en el HTML); solo parpadea el halo.
-
-    // ===== CHAT LOGIC =====
-    const miniJosan = document.getElementById('miniJosan');
-    const chatWindow = document.getElementById('chatWindow');
+    const wrapper = document.getElementById('josanWrapper');
+    const tab = document.getElementById('josanTab');
     const chatClose = document.getElementById('chatClose');
     const chatBody = document.getElementById('chatBody');
     const suggestions = document.querySelectorAll('.chat-suggestion-btn');
     const chatInput = document.getElementById('chatInput');
     const chatSend = document.getElementById('chatSend');
+    const chatSuggestions = document.getElementById('chatSuggestions');
 
+    // ═══════════════════════════════════════════
+    // RESPUESTAS COMPLETAS — JOSAN HERRERA
+    // ═══════════════════════════════════════════
     const responses = {
-      experiencia: "Tengo experiencia real en fábrica, comercio y administración durante casi una década. Después decidí dar el salto al desarrollo: hice el Ciclo Superior DAM y un Máster en IA Generativa. Combino esa base práctica con conocimientos técnicos sólidos en Java, SQL, n8n y automatización con IA.",
-      proyectos: "He desarrollado varios proyectos: Cercanos (marketplace de servicios locales), webs para clientes reales como AG Nutrición y Aquaplum, un sistema de facturación en Java, y AtomicMind, mi proyecto de fin de grado sobre IA y sostenibilidad. Puedes verlos todos en la sección de Proyectos ↑",
-      disponibilidad: "Sí, estoy disponible para incorporarme a proyectos, prácticas o colaboraciones — tanto presencial en Sevilla como en remoto. Si tienes algo en mente, ¡hablemos!",
-      contacto: "Puedes encontrarme en GitHub (JosanHerrera) o LinkedIn — los enlaces están en la cabecera del portfolio. También puedes escribirme por WhatsApp con el botón de aquí abajo 👇",
-      fallback: "Esa es una buena pregunta para José directamente — escríbele por WhatsApp o LinkedIn y te responde personalmente 😊"
+
+      saludo: "¡Hola! Encantado de saludarte. Soy el asistente virtual de Josan Herrera. Puedes preguntarme sobre su experiencia, formación, proyectos o cómo contactarle. ¿En qué puedo ayudarte?",
+
+      despedida: "¡Hasta luego! Ha sido un placer. Si necesitas más información sobre Josan no dudes en volver. 👋",
+
+      gracias: "¡De nada! Es un placer poder ayudarte. Si tienes más preguntas sobre Josan, aquí estaré.",
+
+      quien: "Josan Herrera es el nombre con el que se le conoce, aunque su nombre completo es José Antonio Herrera Soto. Nació el 5 de abril de 1994 y reside en El Viso del Alcor, Sevilla. Tras más de una década trabajando en sectores como la logística, el comercio y la industria, decidió dar el salto al mundo tech. Es Técnico Superior en DAM y cuenta con un Máster en IA Generativa y Automatizaciones. Su especialidad es la automatización de procesos con n8n e IA.",
+
+      experiencia: "Josan tiene una trayectoria sólida y diferente a la mayoría de juniors. Lleva más de diez años en sectores exigentes: logística, fábrica y comercio, lo que le ha dado una visión muy práctica del trabajo real. En 2025 completó el Ciclo Superior en Desarrollo de Aplicaciones Multiplataforma (DAM) en Cesur, realizando prácticas en CodeArts Solutions donde trabajó en un proyecto real para un cliente real usando C#, Git, GitHub, Docker, Docker Compose, Slack y Unity. Posteriormente completó un Máster en IA Generativa y Automatizaciones con la Academia UDIA.",
+
+      formacion: "Su formación incluye: Ciclo Superior DAM en Cesur (2025), Máster Experto en IA Generativa y Automatizaciones en Academia UDIA (finalizado con éxito), prácticas de 370 horas en CodeArts Solutions, y varios cursos certificados como Análisis de Datos con Excel/Power BI, ChatGPT e IA, Desarrollo Sostenible y Sistemas Digitales.",
+
+      practicas: "Las prácticas en CodeArts Solutions fueron 370 horas trabajando en un proyecto real para un cliente real. Las tecnologías usadas fueron C#, bases de datos, Git y GitHub para control de versiones, Docker, Docker Compose y Unity. La comunicación del equipo se gestionaba por Slack. Fue una experiencia muy completa con tecnologías profesionales reales.",
+
+      proyectos: "Sus proyectos más destacados son: Cercanos (marketplace de servicios locales, disponible pero en proceso de activación completa), AG Nutrición (web profesional para dietista-nutricionista), Aquaplum (web para empresa de fontanería en Sevilla), Sistema de Facturación (app Java con MySQL), AtomicMind (proyecto fin de grado sobre IA y sostenibilidad, con matrícula de honor), y la web de Carpintería Hijos de José Soto, un proyecto especial construido íntegramente con IA como regalo a su familia.",
+
+      proyecto_favorito: "Sus dos proyectos favoritos son AtomicMind, su proyecto fin de grado sobre IA y sostenibilidad por el que recibió matrícula de honor, y la web de la carpintería familiar. Esta última es especial porque la construyó íntegramente con IA generativa sin tocar código manualmente, y es un regalo a su familia.",
+
+      skills: "Sus principales habilidades técnicas son: n8n para automatización de procesos (su favorita), IA Generativa y Prompt Engineering, Java, JavaScript, HTML, CSS, SQL, MySQL, C#, Docker, Git y GitHub. También maneja conceptos de APIs REST, Programación Orientada a Objetos, y herramientas como Eclipse, IntelliJ, Linux y Unity.",
+
+      tecnologia_favorita: "Su tecnología favorita actualmente es n8n para automatización de procesos. Combinada con IA, permite crear automatizaciones de todo tipo y es en lo que más quiere crecer profesionalmente.",
+
+      disponibilidad: "Actualmente Josan trabaja en logística en turnos rotativos (una semana de mañana, otra de tarde), pero está activamente buscando oportunidades en el mundo tech. Está abierto a cualquier tipo de empresa — startup, gran empresa o trabajo freelance — siempre que pueda aplicar sus conocimientos en desarrollo e IA. Prefiere trabajar en Sevilla o en remoto, aunque si se requiere desplazamiento puntual para formación, está dispuesto.",
+
+      salario: "Josan no tiene una pretensión salarial fija. Está dispuesto a aceptar lo que establezca el convenio para su perfil, priorizando entrar en el sector tech y demostrar su valía. Viene de años cobrando salarios mínimos en sectores físicamente exigentes, por lo que valora especialmente la calidad de vida que ofrece el mundo tech.",
+
+      diferencial: "Lo que diferencia a Josan de otros juniors es su madurez profesional. Con más de diez años en sectores exigentes, sabe lo que es el esfuerzo real, la responsabilidad y cumplir con un horario. No viene del tech por moda — viene con determinación porque ha vivido lo que es el trabajo duro y quiere algo mejor. Además, su capacidad de combinar automatización con IA le da un perfil muy demandado actualmente.",
+
+      contacto: "Puedes contactar con Josan por email en hjosanherrera@gmail.com o por WhatsApp al 685 381 522. Ten en cuenta que trabaja en turnos rotativos (mañana/tarde), por lo que el email es la vía más fiable para garantizar que recibe tu mensaje. También puedes encontrarle en GitHub (JosanHerrera) y LinkedIn.",
+
+      ubicacion: "Josan reside en El Viso del Alcor, Sevilla. Busca trabajo en Sevilla capital o en remoto. Para formación puntual o reuniones, estaría dispuesto a desplazarse.",
+
+      offtopic: "Ese tema no está dentro de mi ámbito. Soy el asistente virtual de Josan Herrera y solo estoy aquí para informarte sobre él — su experiencia, proyectos, formación y cómo contactarle. ¿Puedo ayudarte con algo relacionado con Josan?"
     };
 
-    // Sistema de keywords para el campo libre
+    // ═══════════════════════════════════════════
+    // SISTEMA DE KEYWORDS ANTI-HACKEO
+    // ═══════════════════════════════════════════
     const keywordMap = [
-      { keys: ['experiencia','trabajo','trabajado','laboral','curriculum','cv'], answer: 'experiencia' },
-      { keys: ['proyecto','proyectos','portfolio','github','app','aplicacion'], answer: 'proyectos' },
-      { keys: ['disponible','disponibilidad','trabajar','incorporar','empleo','vacante'], answer: 'disponibilidad' },
-      { keys: ['contacto','contactar','email','correo','whatsapp','linkedin','telefono','hablar'], answer: 'contacto' },
+      // Saludos
+      { keys: ['hola','buenas','hey','saludos','buenos dias','buenas tardes','buenas noches','hi','hello'], answer: 'saludo' },
+      // Despedidas
+      { keys: ['adios','hasta luego','bye','chao','nos vemos','hasta pronto'], answer: 'despedida' },
+      // Gracias
+      { keys: ['gracias','thank','genial','perfecto','estupendo'], answer: 'gracias' },
+      // Quién es
+      { keys: ['quien es','quién es','quien eres','presentate','presentación','sobre ti','sobre josan','cuéntame de ti'], answer: 'quien' },
+      // Experiencia
+      { keys: ['experiencia','trabajado','trabajo anterior','trayectoria','historial','curriculum','cv','trabajos'], answer: 'experiencia' },
+      // Formación
+      { keys: ['formacion','formación','estudios','titulo','titulación','dam','master','máster','udia','cesur','certificado','curso'], answer: 'formacion' },
+      // Prácticas
+      { keys: ['practicas','prácticas','codearts','code arts'], answer: 'practicas' },
+      // Proyectos
+      { keys: ['proyecto','proyectos','portfolio','github','app','aplicacion','cercanos','aquaplum','atomicmind','carpinteria','nutricion'], answer: 'proyectos' },
+      // Proyecto favorito
+      { keys: ['favorito','orgulloso','mejor proyecto','destacado'], answer: 'proyecto_favorito' },
+      // Skills
+      { keys: ['skills','habilidades','tecnologia','stack','sabes','conoces','lenguaje','programas'], answer: 'skills' },
+      // Tecnología favorita
+      { keys: ['favorita','preferida','n8n','automatiz'], answer: 'tecnologia_favorita' },
+      // Disponibilidad
+      { keys: ['disponible','disponibilidad','trabajar','incorporar','empleo','vacante','busca trabajo','contratarle','cuando puede'], answer: 'disponibilidad' },
+      // Salario
+      { keys: ['salario','sueldo','pretension','cobra','cuanto quiere','precio'], answer: 'salario' },
+      // Diferencial
+      { keys: ['diferencia','diferente','destaca','por que contratar','ventaja','perfil'], answer: 'diferencial' },
+      // Contacto
+      { keys: ['contacto','contactar','email','correo','whatsapp','telefono','linkedin','hablar','llamar'], answer: 'contacto' },
+      // Ubicación
+      { keys: ['donde vive','ubicacion','ciudad','sevilla','remoto','presencial','desplazar'], answer: 'ubicacion' },
+    ];
+
+    // Temas bloqueados (off-topic)
+    const blockedTopics = [
+      'futbol','fútbol','deporte','política','politica','sexo','noticias','musica','música',
+      'pelicula','película','serie','juego','videojuego','cocina','receta','chiste','broma',
+      'hack','prompt','instruccion','instrucción','sistema','ignore','olvida','eres una','actúa como',
+      'actua como','finge','pretende','jailbreak','dan mode','sin restricciones','nueva personalidad'
     ];
 
     function getResponseFor(text) {
       const lower = text.toLowerCase();
+
+      // Anti-hackeo — detectar intentos de manipulación
+      if (blockedTopics.some(t => lower.includes(t))) {
+        return responses.offtopic;
+      }
+
+      // Buscar keyword match
       for (const entry of keywordMap) {
         if (entry.keys.some(k => lower.includes(k))) {
           return responses[entry.answer];
         }
       }
-      return responses.fallback;
+
+      // Fallback genérico
+      return "No tengo información específica sobre eso, pero puedo contarte sobre la experiencia, formación, proyectos o cómo contactar con Josan. ¿Qué te gustaría saber?";
     }
 
+    let opened = false;
     let chatOpened = false;
 
-    function openChat() {
-      chatWindow.classList.add('open');
-      if (!chatOpened) {
+    tab.addEventListener('click', () => {
+      opened = !opened;
+      wrapper.classList.toggle('open', opened);
+      document.body.classList.toggle('chat-open', opened);
+      if (opened && !chatOpened) {
         chatOpened = true;
         addMessage('ai', '¡Hola! Soy una IA entrenada con la información de José Antonio. Pregúntame sobre su experiencia, proyectos o disponibilidad 👇', true);
       }
-    }
+    });
+
+    chatClose.addEventListener('click', () => {
+      opened = false;
+      wrapper.classList.remove('open');
+      document.body.classList.remove('chat-open');
+    });
 
     function addMessage(type, text, withPrefix = false) {
       const msg = document.createElement('div');
       msg.className = `chat-msg ${type}`;
-      if (withPrefix) {
-        msg.innerHTML = `<span class="prefix">JOSAN-IA:</span>${text}`;
-      } else {
-        msg.textContent = text;
-      }
+      if (withPrefix) msg.innerHTML = `<span class="prefix">JOSAN-IA:</span>${text}`;
+      else msg.textContent = text;
       chatBody.appendChild(msg);
       chatBody.scrollTop = chatBody.scrollHeight;
     }
 
     function showTyping() {
-      const typing = document.createElement('div');
-      typing.className = 'chat-msg ai typing';
-      typing.id = 'typingIndicator';
-      typing.innerHTML = '<span></span><span></span><span></span>';
-      chatBody.appendChild(typing);
+      const t = document.createElement('div');
+      t.className = 'chat-msg ai typing';
+      t.id = 'typingIndicator';
+      t.innerHTML = '<span></span><span></span><span></span>';
+      chatBody.appendChild(t);
       chatBody.scrollTop = chatBody.scrollHeight;
     }
 
@@ -3040,55 +3050,35 @@
       if (t) t.remove();
     }
 
-    miniJosan.addEventListener('click', () => {
-      if (chatWindow.classList.contains('open')) {
-        chatWindow.classList.remove('open');
-      } else {
-        openChat();
-      }
-    });
-
-    chatClose.addEventListener('click', () => chatWindow.classList.remove('open'));
-
-    const chatSuggestions = document.getElementById('chatSuggestions');
-    function hideSuggestions() {
-      chatSuggestions.style.display = 'none';
-    }
+    function hideSuggestions() { chatSuggestions.style.display = 'none'; }
 
     suggestions.forEach(btn => {
       btn.addEventListener('click', () => {
-        const q = btn.dataset.q;
         addMessage('user', btn.textContent);
         hideSuggestions();
-
         showTyping();
         setTimeout(() => {
           removeTyping();
-          addMessage('ai', responses[q], true);
-        }, 900 + Math.random() * 600);
+          addMessage('ai', responses[btn.dataset.q], true);
+        }, 900 + Math.random() * 500);
       });
     });
 
-    // Campo de texto libre
     function sendFreeText() {
       const text = chatInput.value.trim();
       if (!text) return;
       addMessage('user', text);
       chatInput.value = '';
       hideSuggestions();
-
-      const reply = getResponseFor(text);
       showTyping();
       setTimeout(() => {
         removeTyping();
-        addMessage('ai', reply, true);
-      }, 900 + Math.random() * 600);
+        addMessage('ai', getResponseFor(text), true);
+      }, 900 + Math.random() * 500);
     }
 
     chatSend.addEventListener('click', sendFreeText);
-    chatInput.addEventListener('keydown', e => {
-      if (e.key === 'Enter') sendFreeText();
-    });
+    chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendFreeText(); });
   })();
   </script>
 
