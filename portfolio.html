@@ -1017,13 +1017,6 @@
     }
     .tab-dot { width: 6px; height: 6px; }
     .tab-arrow { font-size: 10px; }
-
-    .chat-window {
-      width: calc(100vw - 40px);
-      height: 70vh;
-      max-height: 480px;
-      left: 28px;
-    }
   }
 
   /* ===== CHAT WINDOW ===== */
@@ -1054,6 +1047,25 @@
     transform: translateY(-50%) translateX(0);
     opacity: 1;
     pointer-events: all;
+  }
+
+  /* Chat a pantalla completa en móvil */
+  @media (max-width: 768px) {
+    .chat-window {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      max-height: 100vh;
+      border-radius: 0;
+      z-index: 1000;
+      border: none;
+      transform: translateX(-100%);
+    }
+    .josan-ia-wrapper.open .chat-window {
+      transform: translateX(0);
+    }
   }
 
   .chat-header {
@@ -1483,7 +1495,7 @@
                 sm:bottom-[34%] sm:w-[238px] sm:h-[238px]
                 lg:bottom-[20%] lg:left-auto lg:right-[16%] lg:-translate-x-0 lg:w-[390px] lg:h-[390px]">
       <div class="profile-photo-wrapper">
-        <img src="./foto-perfil.jpg" alt="José Antonio Herrera">
+        <img src="JOSAN.png" alt="José Antonio Herrera">
         <span class="disco" aria-hidden="true"></span>
         <span class="disco-tiles" aria-hidden="true"></span>
         <div class="profile-dot"></div>
@@ -3080,6 +3092,26 @@
     chatSend.addEventListener('click', sendFreeText);
     chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendFreeText(); });
   })();
+  </script>
+
+  <!-- ══ PESTAÑA JOSAN-IA · SOLO VISIBLE EN SECCIÓN 1 (MÓVIL) ══ -->
+  <script>
+  window.addEventListener('scroll', function() {
+    if (window.innerWidth <= 768) {
+      const section1 = document.querySelector('section:first-of-type')
+                       || document.getElementById('inicio');
+      const wrapper = document.getElementById('josanWrapper');
+      if (!wrapper) return;
+      if (section1) {
+        const rect = section1.getBoundingClientRect();
+        if (rect.bottom < 0) {
+          wrapper.style.display = 'none';
+        } else {
+          wrapper.style.display = 'flex';
+        }
+      }
+    }
+  });
   </script>
 
 </body>
