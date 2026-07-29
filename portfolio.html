@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>JOSAN.DEV — José Antonio Herrera Soto</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1229,6 +1229,13 @@
   }
   .chat-input::placeholder { color: rgba(240,237,230,0.2); }
   .chat-input:focus { border-color: rgba(255,107,43,0.4); }
+
+  /* Evita el zoom automático del navegador al enfocar el input en móvil */
+  @media (max-width: 768px) {
+    .chat-input {
+      font-size: 16px !important;
+    }
+  }
   .chat-send-btn {
     width: 34px; height: 34px;
     border-radius: 8px;
