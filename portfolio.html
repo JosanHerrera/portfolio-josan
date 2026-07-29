@@ -1051,20 +1051,36 @@
 
   /* Chat a pantalla completa en móvil */
   @media (max-width: 768px) {
-    .chat-window {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      max-height: 100vh;
-      border-radius: 0;
-      z-index: 1000;
-      border: none;
-      transform: translateX(-100%);
+    .josan-ia-wrapper {
+      top: 0 !important;
+      transform: none !important;
+      align-items: flex-start !important;
     }
+
+    .josan-tab {
+      position: fixed !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      left: 0 !important;
+    }
+
+    .chat-window {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      max-height: 100vh !important;
+      border-radius: 0 !important;
+      z-index: 1001 !important;
+      border: none !important;
+      transform: translateX(-100%) !important;
+      opacity: 0 !important;
+    }
+
     .josan-ia-wrapper.open .chat-window {
-      transform: translateX(0);
+      transform: translateX(0) !important;
+      opacity: 1 !important;
     }
   }
 
@@ -1491,8 +1507,8 @@
 
     <!-- ── PROFILE PHOTO — circle, bottom-right desktop / centered mobile ── -->
     <div class="absolute z-10
-                bottom-[42%] left-1/2 -translate-x-1/2 w-[200px] h-[200px]
-                sm:bottom-[34%] sm:w-[238px] sm:h-[238px]
+                bottom-[42%] left-1/2 -translate-x-1/2 w-[min(80vw,300px)] h-[min(80vw,300px)]
+                sm:bottom-[34%] sm:w-[300px] sm:h-[300px]
                 lg:bottom-[20%] lg:left-auto lg:right-[16%] lg:-translate-x-0 lg:w-[390px] lg:h-[390px]">
       <div class="profile-photo-wrapper">
         <img src="JOSAN.png" alt="José Antonio Herrera">
