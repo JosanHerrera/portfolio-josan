@@ -1380,9 +1380,9 @@
           <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
         </svg>
       </button>
-      <p class="font-mono text-[10px] text-[#FF6B2B] uppercase tracking-widest mb-3">CERTIFICADO</p>
-      <h3 class="font-anton text-[24px] text-[#F0EDE6] mb-3">PRÓXIMAMENTE</h3>
-      <p class="font-mono text-[11px] sm:text-[12px] text-[#F0EDE6]/60 uppercase leading-relaxed">
+      <p id="cert-modal-tag" class="font-mono text-[10px] text-[#FF6B2B] uppercase tracking-widest mb-3">CERTIFICADO</p>
+      <h3 id="cert-modal-title" class="font-anton text-[24px] text-[#F0EDE6] mb-3">PRÓXIMAMENTE</h3>
+      <p id="cert-modal-msg" class="font-mono text-[11px] sm:text-[12px] text-[#F0EDE6]/60 uppercase leading-relaxed">
         Este certificado estará disponible en breve.<br>Gracias por tu interés.
       </p>
       <button onclick="closeModal()"
@@ -1840,6 +1840,24 @@
             </div>
           </div>
         </div>
+
+        <a href="./certificados/vida_laboral_JoseAntonio_Herrera.pdf" data-cert="vida-laboral"
+           data-cert-tag="EXPERIENCIA LABORAL"
+           data-cert-title="VIDA LABORAL"
+           data-cert-note="Documento actualizado cada 2 meses · Última actualización: 26/08/2026"
+           class="liquid-glass rounded-[20px] sm:rounded-[28px] p-5 sm:p-6
+                  hover:bg-white/5 transition-colors cursor-pointer
+                  flex flex-col justify-between min-h-[170px] sm:min-h-[200px]">
+          <div>
+            <p class="font-mono text-[9px] sm:text-[10px] text-[#FF6B2B] uppercase mb-2 sm:mb-3">EXPERIENCIA LABORAL</p>
+            <h3 class="font-anton text-[17px] sm:text-[20px] text-[#F0EDE6] mb-1 sm:mb-2">VIDA LABORAL</h3>
+            <p class="font-mono text-[10px] sm:text-[12px] text-[#F0EDE6]/60 uppercase">HISTORIAL COMPLETO · SEGURIDAD SOCIAL</p>
+          </div>
+          <div class="flex items-center justify-between mt-3 sm:mt-4">
+            <span class="font-mono text-[10px] sm:text-[11px] text-[#FF6B2B] bg-[#FF6B2B]/10 rounded-full px-3 py-1">ACTUALIZACIÓN: 26/08/2026</span>
+            <span class="font-mono text-[9px] sm:text-[10px] text-[#FF6B2B] uppercase">🔗 VER DOCUMENTO</span>
+          </div>
+        </a>
 
       </div>
     </div>
@@ -2474,7 +2492,17 @@
       btn.textContent = panel.classList.contains('open') ? 'COLAPSAR ↑' : 'VER 2 DOCUMENTOS →';
     }
 
-    function openModal() {
+    const CERT_MODAL_DEFAULT = {
+      tag:   'CERTIFICADO',
+      title: 'PRÓXIMAMENTE',
+      msg:   'Este certificado estará disponible en breve.<br>Gracias por tu interés.'
+    };
+
+    function openModal(opts) {
+      const o = opts || {};
+      document.getElementById('cert-modal-tag').textContent   = o.tag   || CERT_MODAL_DEFAULT.tag;
+      document.getElementById('cert-modal-title').textContent = o.title || CERT_MODAL_DEFAULT.title;
+      document.getElementById('cert-modal-msg').innerHTML     = o.msg   || CERT_MODAL_DEFAULT.msg;
       document.getElementById('cert-modal').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -2490,10 +2518,13 @@
       if (!link) return;
       e.preventDefault();
       const href = link.getAttribute('href');
+      const note = link.dataset.certNote;
+      const info = note ? { tag: link.dataset.certTag, title: link.dataset.certTitle, msg: note } : null;
       if (!href || href === '#') {
-        openModal();
+        openModal(info);
       } else {
         window.open(href, '_blank', 'noopener');
+        if (info) openModal(info);
       }
     });
 
