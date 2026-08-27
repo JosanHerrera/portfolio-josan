@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -1266,9 +1267,198 @@
       font-size: 16px;
     }
   }
+
+/* ===== LOADER ===== */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: #0A0A0F;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  gap: 32px;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#loader.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#loader::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+#loader::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255,107,43,0.015) 2px,
+    rgba(255,107,43,0.015) 4px
+  );
+  pointer-events: none;
+}
+
+.loader-tag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,107,43,0.6);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  animation: loaderFadeInUp 0.5s ease forwards;
+  opacity: 0;
+}
+
+.loader-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 10vw, 120px);
+  color: #F0EDE6;
+  letter-spacing: 0.06em;
+  text-align: center;
+  line-height: 1;
+  position: relative;
+}
+
+.loader-name .line { display: block; }
+
+.loader-divider {
+  width: 0px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #FF6B2B, transparent);
+  animation: loaderExpandLine 0.6s ease 1.8s forwards;
+  max-width: 400px;
+}
+
+@keyframes loaderExpandLine {
+  to { width: 400px; }
+}
+
+.loader-sub {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: rgba(240,237,230,0.4);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  text-align: center;
+  opacity: 0;
+  animation: loaderFadeInUp 0.5s ease 2s forwards;
+}
+.loader-sub span { color: #FF6B2B; }
+
+.loader-status {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,107,43,0.7);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  min-height: 16px;
+  text-align: center;
+}
+
+.loader-progress-wrap {
+  width: min(320px, 80vw);
+  opacity: 0;
+  animation: loaderFadeInUp 0.4s ease 2.2s forwards;
+}
+
+.loader-progress-bar {
+  width: 100%;
+  height: 2px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.loader-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #FF6B2B, #ffaa80);
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(255,107,43,0.5);
+  transition: width 0.1s linear;
+}
+
+.loader-progress-text {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: rgba(240,237,230,0.25);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.loader-percent {
+  color: #FF6B2B;
+  font-size: 10px;
+}
+
+.loader-corner {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  opacity: 0.3;
+}
+.loader-corner-tl { top: 24px; left: 24px; border-top: 1px solid #FF6B2B; border-left: 1px solid #FF6B2B; }
+.loader-corner-tr { top: 24px; right: 24px; border-top: 1px solid #FF6B2B; border-right: 1px solid #FF6B2B; }
+.loader-corner-bl { bottom: 24px; left: 24px; border-bottom: 1px solid #FF6B2B; border-left: 1px solid #FF6B2B; }
+.loader-corner-br { bottom: 24px; right: 24px; border-bottom: 1px solid #FF6B2B; border-right: 1px solid #FF6B2B; }
+
+@keyframes loaderFadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
   </style>
 </head>
 <body class="bg-[#0A0A0F] font-mono">
+
+  <!-- ===== PANTALLA DE CARGA ===== -->
+  <div id="loader">
+    <div class="loader-corner loader-corner-tl"></div>
+    <div class="loader-corner loader-corner-tr"></div>
+    <div class="loader-corner loader-corner-bl"></div>
+    <div class="loader-corner loader-corner-br"></div>
+
+    <div class="loader-tag">SISTEMA INICIALIZANDO...</div>
+
+    <div class="loader-name">
+      <span class="line" id="loaderLine1">JOSAN</span>
+      <span class="line" id="loaderLine2">HERRERA</span>
+    </div>
+
+    <div class="loader-divider"></div>
+
+    <div class="loader-sub">
+      <span>DAM</span> · IA GENERATIVA · <span>AUTOMATIZACIONES</span>
+    </div>
+
+    <div class="loader-status" id="loaderStatus">_</div>
+
+    <div class="loader-progress-wrap">
+      <div class="loader-progress-bar">
+        <div class="loader-progress-fill" id="loaderProgressFill"></div>
+      </div>
+      <div class="loader-progress-text">
+        <span>CARGANDO PORTFOLIO</span>
+        <span class="loader-percent" id="loaderProgressPercent">0%</span>
+      </div>
+    </div>
+  </div>
+  <!-- ===== FIN PANTALLA DE CARGA ===== -->
 
   <!-- ══ STICKY NAV (aparece al hacer scroll) ══ -->
   <nav id="sticky-nav" class="liquid-glass" aria-label="Navegación fija">
@@ -2096,6 +2286,75 @@
         </div>
       </div>
 
+      <!-- Carta 7: Asignación de rutas (n8n) -->
+      <div class="proj-card" data-index="7" data-pos="-1"
+           data-title="ASIGNACIÓN DE RUTAS"
+           data-desc="AUTOMATIZACIÓN LOGÍSTICA DIARIA · N8N · GOOGLE SHEETS · GMAIL"
+           data-tag="AUTOMATIZACIÓN · N8N"
+           data-url="https://github.com/JosanHerrera/n8n-asignacion-rutas"
+           data-img="img-n8n-rutas.png">
+        <img src="img-n8n-rutas.png" alt="Asignación de rutas">
+        <div class="proj-card-info">
+          <div>
+            <div class="proj-card-tag">AUTOMATIZACIÓN · N8N</div>
+            <div class="proj-card-title">ASIGNACIÓN DE RUTAS</div>
+            <div class="proj-card-desc">REPARTO AUTOMÁTICO DIARIO · 4 CONDUCTORES · GOOGLE SHEETS</div>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-link">VER EN GITHUB →</span>
+            <div class="proj-card-arrow">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carta 8: Recordatorios de cobros (n8n) -->
+      <div class="proj-card" data-index="8" data-pos="-1"
+           data-title="RECORDATORIOS DE COBROS"
+           data-desc="GESTIÓN AUTOMÁTICA DE FACTURAS VENCIDAS · N8N · GMAIL · IA"
+           data-tag="AUTOMATIZACIÓN · N8N"
+           data-url="https://github.com/JosanHerrera/n8n-recordatorios-cobros"
+           data-img="img-n8n-cobros.png">
+        <img src="img-n8n-cobros.png" alt="Recordatorios de cobros">
+        <div class="proj-card-info">
+          <div>
+            <div class="proj-card-tag">AUTOMATIZACIÓN · N8N</div>
+            <div class="proj-card-title">RECORDATORIOS COBROS</div>
+            <div class="proj-card-desc">AVISOS AUTOMÁTICOS · TONO ADAPTATIVO · GOOGLE SHEETS</div>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-link">VER EN GITHUB →</span>
+            <div class="proj-card-arrow">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carta 9: Cadena de pedido con IA (n8n) -->
+      <div class="proj-card" data-index="9" data-pos="-1"
+           data-title="CADENA DE PEDIDO CON IA"
+           data-desc="PROCESAMIENTO DE PEDIDOS POR EMAIL CON CLAUDE IA · N8N · GOOGLE SHEETS"
+           data-tag="AUTOMATIZACIÓN · IA · N8N"
+           data-url="https://github.com/JosanHerrera/n8n-cadena-pedido-ia"
+           data-img="img-n8n-pedido.png">
+        <img src="img-n8n-pedido.png" alt="Cadena de pedido con IA">
+        <div class="proj-card-info">
+          <div>
+            <div class="proj-card-tag">AUTOMATIZACIÓN · IA · N8N</div>
+            <div class="proj-card-title">CADENA PEDIDO CON IA</div>
+            <div class="proj-card-desc">EXTRACCIÓN INTELIGENTE · CLAUDE API · VERIFICACIÓN STOCK</div>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-link">VER EN GITHUB →</span>
+            <div class="proj-card-arrow">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- Navegación -->
@@ -2111,6 +2370,9 @@
         <div class="carousel-dot" data-dot="4"></div>
         <div class="carousel-dot" data-dot="5"></div>
         <div class="carousel-dot" data-dot="6"></div>
+        <div class="carousel-dot" data-dot="7"></div>
+        <div class="carousel-dot" data-dot="8"></div>
+        <div class="carousel-dot" data-dot="9"></div>
       </div>
       <button class="carousel-btn" id="nextBtn" aria-label="Siguiente">
         <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -2870,7 +3132,7 @@
   <!-- ══ CARRUSEL PROYECTOS ══ -->
   <script>
   (function() {
-    const TOTAL = 7;
+    const TOTAL = 10;
     let current = 0;
 
     const cards = Array.from(document.querySelectorAll('.proj-card'));
@@ -3178,6 +3440,105 @@
       }
     }
   });
+  </script>
+
+  <!-- ══ PANTALLA DE CARGA ══ -->
+  <script>
+  (function() {
+    const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@%&';
+
+    function glitch(element, finalText, duration, onDone) {
+      const len = finalText.length;
+      let resolved = new Array(len).fill(false);
+      let frame = 0;
+      const totalFrames = Math.floor(duration / 50);
+      const resolveAt = Array.from({length: len}, (_, i) =>
+        Math.floor((i / len) * totalFrames * 0.8) + Math.floor(Math.random() * 8)
+      );
+
+      const interval = setInterval(() => {
+        let display = '';
+        for (let i = 0; i < len; i++) {
+          if (finalText[i] === ' ') { display += ' '; continue; }
+          if (frame >= resolveAt[i]) {
+            resolved[i] = true;
+            display += `<span style="color:#F0EDE6">${finalText[i]}</span>`;
+          } else {
+            const r = Math.random();
+            if (r < 0.3) {
+              display += `<span style="color:#FF6B2B">${CHARS[Math.floor(Math.random()*CHARS.length)]}</span>`;
+            } else {
+              display += `<span style="color:rgba(240,237,230,0.2)">${CHARS[Math.floor(Math.random()*CHARS.length)]}</span>`;
+            }
+          }
+        }
+        element.innerHTML = display;
+        frame++;
+        if (resolved.every(Boolean)) {
+          clearInterval(interval);
+          element.innerHTML = finalText;
+          if (onDone) onDone();
+        }
+      }, 50);
+    }
+
+    const statusMessages = [
+      'VERIFICANDO IDENTIDAD...',
+      'CARGANDO PROYECTOS...',
+      'INICIALIZANDO IA...',
+      'SISTEMA LISTO ✓'
+    ];
+
+    const loaderStatus = document.getElementById('loaderStatus');
+    const progressFill = document.getElementById('loaderProgressFill');
+    const progressPercent = document.getElementById('loaderProgressPercent');
+
+    let progress = 0;
+    let statusIndex = 0;
+
+    window.addEventListener('load', () => {
+      const line1 = document.getElementById('loaderLine1');
+      const line2 = document.getElementById('loaderLine2');
+
+      setTimeout(() => {
+        glitch(line1, 'JOSAN', 900, () => {
+          setTimeout(() => {
+            glitch(line2, 'HERRERA', 900, () => {
+              setTimeout(startProgress, 300);
+            });
+          }, 100);
+        });
+      }, 400);
+    });
+
+    function startProgress() {
+      const statusInterval = setInterval(() => {
+        if (statusIndex < statusMessages.length) {
+          loaderStatus.style.opacity = '0';
+          setTimeout(() => {
+            loaderStatus.textContent = statusMessages[statusIndex];
+            loaderStatus.style.opacity = '1';
+            loaderStatus.style.transition = 'opacity 0.3s';
+            statusIndex++;
+          }, 150);
+        } else {
+          clearInterval(statusInterval);
+        }
+      }, 600);
+
+      const progressInterval = setInterval(() => {
+        progress += 1;
+        progressFill.style.width = progress + '%';
+        progressPercent.textContent = progress + '%';
+        if (progress >= 100) {
+          clearInterval(progressInterval);
+          setTimeout(() => {
+            document.getElementById('loader').classList.add('hide');
+          }, 500);
+        }
+      }, 30);
+    }
+  })();
   </script>
 
 </body>
