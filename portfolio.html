@@ -1422,6 +1422,84 @@
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* ===== TICKER DOBLE ===== */
+.ticker-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 0;
+  margin-top: -120px;
+  z-index: 10;
+  /* desvanecido en los bordes: el ticker se difumina en vez de cortarse en seco,
+     y deja respirar la zona del botón flotante de WhatsApp (abajo derecha) */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 130px, #000 calc(100% - 190px), transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 130px, #000 calc(100% - 190px), transparent 100%);
+}
+
+.ticker-row {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  padding: 10px 0;
+  position: relative;
+}
+
+.ticker-row-1 {
+  background: #FF6B2B;
+  transform: rotate(2deg) scaleX(1.1);
+  margin-bottom: -8px;
+  z-index: 2;
+}
+
+.ticker-row-2 {
+  background: #0A0A0F;
+  border-top: 1px solid rgba(255,107,43,0.3);
+  border-bottom: 1px solid rgba(255,107,43,0.3);
+  transform: rotate(-2deg) scaleX(1.1);
+  z-index: 1;
+}
+
+.ticker-track {
+  display: flex;
+  gap: 0;
+  white-space: nowrap;
+  animation: tickerLeft 20s linear infinite;
+}
+
+.ticker-track-right {
+  animation: tickerRight 20s linear infinite;
+}
+
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 20px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ticker-row-1 .ticker-item { color: #0A0A0F; }
+.ticker-row-2 .ticker-item { color: #FF6B2B; }
+
+.ticker-separator { color: inherit; opacity: 0.5; font-size: 12px; }
+
+@keyframes tickerLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes tickerRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.ticker-row:hover .ticker-track { animation-play-state: paused; }
   </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -1748,6 +1826,53 @@
     </div>
 
   </section>
+
+
+  <!-- ===== TICKER DOBLE ===== -->
+  <div class="ticker-wrapper">
+
+    <!-- FILA 1 — naranja, va a la izquierda -->
+    <div class="ticker-row ticker-row-1">
+      <div class="ticker-track">
+        <div class="ticker-item">AUTOMATIZACIONES <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">PÁGINAS WEB <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">IA GENERATIVA <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">N8N <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">PROMPT ENGINEERING <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">CLAUDE AI <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">GITHUB <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">AUTOMATIZACIONES <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">PÁGINAS WEB <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">IA GENERATIVA <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">N8N <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">PROMPT ENGINEERING <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">CLAUDE AI <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">GITHUB <span class="ticker-separator">✦</span></div>
+      </div>
+    </div>
+
+    <!-- FILA 2 — oscura con texto naranja, va a la derecha -->
+    <div class="ticker-row ticker-row-2">
+      <div class="ticker-track ticker-track-right">
+        <div class="ticker-item">AUTOMATIZACIONES <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">PÁGINAS WEB <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">IA GENERATIVA <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">N8N <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">PROMPT ENGINEERING <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">CLAUDE AI <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">GITHUB <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">AUTOMATIZACIONES <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">PÁGINAS WEB <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">IA GENERATIVA <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">N8N <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">PROMPT ENGINEERING <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">CLAUDE AI <span class="ticker-separator">✦</span></div>
+        <div class="ticker-item">GITHUB <span class="ticker-separator">✦</span></div>
+      </div>
+    </div>
+
+  </div>
+  <!-- ===== FIN TICKER ===== -->
 
 
   <!-- ════════════════════════════════════════════════════════ -->
