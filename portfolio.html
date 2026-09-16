@@ -777,6 +777,157 @@
     }
     .proj-lightbox-close:hover { color: #F0EDE6; }
 
+    /* ── Galería dentro del lightbox (proyectos con varias capturas + vídeo) ── */
+    .proj-gallery {
+      display: none;
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      margin-bottom: 22px;
+    }
+    .proj-lightbox.has-gallery .proj-gallery { display: block; }
+    .proj-lightbox.has-gallery #lightboxImg { display: none; }
+
+    /* con galería o texto largo el modal necesita scroll */
+    .proj-lightbox.has-gallery,
+    .proj-lightbox.has-long {
+      justify-content: flex-start;
+      overflow-y: auto;
+      padding-top: 64px;
+    }
+    .proj-lightbox.has-gallery .proj-lightbox-close,
+    .proj-lightbox.has-long .proj-lightbox-close { position: fixed; }
+
+    .proj-gallery-stage {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.02);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,255,255,0.08);
+    }
+    /* liquid glass border en la galería */
+    .proj-gallery-stage::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 1.2px;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.25) 0%,
+        rgba(255,255,255,0.04) 40%,
+        rgba(255,255,255,0.04) 60%,
+        rgba(255,255,255,0.25) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      z-index: 3;
+    }
+    .proj-gallery-slide { display: none; }
+    .proj-gallery-slide.active { display: block; }
+    .proj-lightbox .proj-gallery-stage img,
+    .proj-lightbox .proj-gallery-stage video {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      max-height: 52vh;
+      object-fit: contain;
+      border-radius: 20px;
+      margin: 0;
+      box-shadow: none;
+      background: #05050a;
+    }
+
+    .proj-gallery-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(10,10,20,0.6);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 4;
+      transition: all 0.2s;
+    }
+    .proj-gallery-arrow.prev { left: 12px; }
+    .proj-gallery-arrow.next { right: 12px; }
+    .proj-gallery-arrow:hover {
+      background: rgba(255,107,43,0.9);
+      border-color: #FF6B2B;
+    }
+    .proj-gallery-arrow svg { width: 16px; height: 16px; stroke: #F0EDE6; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .proj-gallery-arrow:hover svg { stroke: #0A0A0F; }
+
+    .proj-gallery-dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 14px;
+    }
+    .proj-gallery-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(240,237,230,0.2);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .proj-gallery-dot.active {
+      background: #FF6B2B;
+      width: 20px;
+      border-radius: 3px;
+      box-shadow: 0 0 8px rgba(255,107,43,0.5);
+    }
+    .proj-gallery-caption {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(240,237,230,0.35);
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    /* Descripción larga del modal */
+    .proj-lightbox-long {
+      display: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 11.5px;
+      line-height: 1.85;
+      color: rgba(240,237,230,0.6);
+      max-width: 700px;
+      width: 100%;
+      text-align: left;
+      margin-bottom: 26px;
+      padding: 20px 22px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(6px);
+    }
+    .proj-lightbox.has-long .proj-lightbox-long { display: block; }
+    .proj-lightbox-long p { margin-bottom: 12px; }
+    .proj-lightbox-long p:last-child { margin-bottom: 0; }
+    .proj-lightbox-long strong { color: #FF6B2B; font-weight: 700; }
+
+    @media (max-width: 768px) {
+      .proj-lightbox.has-gallery,
+      .proj-lightbox.has-long { padding-top: 56px; }
+      .proj-lightbox .proj-gallery-stage img,
+      .proj-lightbox .proj-gallery-stage video { max-height: 38vh; }
+      .proj-gallery-arrow { width: 34px; height: 34px; }
+      .proj-gallery-arrow.prev { left: 6px; }
+      .proj-gallery-arrow.next { right: 6px; }
+      .proj-lightbox-long { font-size: 10.5px; line-height: 1.75; padding: 16px; }
+    }
+
     /* Próximamente badge */
     .badge-soon {
       display: inline-block;
@@ -2481,6 +2632,32 @@
         </div>
       </div>
 
+      <!-- Carta 10: Integración Odoo-n8n -->
+      <div class="proj-card" data-index="10" data-pos="-1"
+           data-title="INTEGRACIÓN ODOO-N8N"
+           data-desc="CONEXIÓN CON ERP REAL VÍA API REST · STOCK, PEDIDOS Y ALERTAS"
+           data-tag="AUTOMATIZACIÓN · N8N + ERP"
+           data-url="https://github.com/JosanHerrera/odoo-n8n-integration"
+           data-cta="VER CÓDIGO EN GITHUB →"
+           data-long-tpl="tplOdooN8nLong"
+           data-img="img-n8n-odoo.png"
+           data-gallery='[{"type":"img","src":"img-n8n-odoo.png","alt":"Flujo completo en n8n","caption":"FLUJO COMPLETO EN N8N"},{"type":"img","src":"img-n8n-odoo-2.png","alt":"Productos reales en Odoo con su stock","caption":"PRODUCTOS Y STOCK REAL EN ODOO"},{"type":"video","src":"vid-n8n-odoo.mp4","caption":"DEMO EN VÍDEO"}]'>
+        <img src="img-n8n-odoo.png" alt="Integración Odoo-n8n">
+        <div class="proj-card-info">
+          <div>
+            <div class="proj-card-tag">AUTOMATIZACIÓN · N8N + ERP</div>
+            <div class="proj-card-title">INTEGRACIÓN ODOO-N8N</div>
+            <div class="proj-card-desc">CONEXIÓN CON ERP REAL VÍA API REST · STOCK, PEDIDOS Y ALERTAS</div>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-link">VER PROYECTO →</span>
+            <div class="proj-card-arrow">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- Navegación -->
@@ -2499,6 +2676,7 @@
         <div class="carousel-dot" data-dot="7"></div>
         <div class="carousel-dot" data-dot="8"></div>
         <div class="carousel-dot" data-dot="9"></div>
+        <div class="carousel-dot" data-dot="10"></div>
       </div>
       <button class="carousel-btn" id="nextBtn" aria-label="Siguiente">
         <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -2511,13 +2689,35 @@
   <div class="proj-lightbox" id="projLightbox">
     <button class="proj-lightbox-close" id="lightboxClose">✕ CERRAR</button>
     <img src="" alt="" id="lightboxImg">
+
+    <!-- Galería (solo para proyectos con data-gallery) -->
+    <div class="proj-gallery" id="lightboxGallery">
+      <div class="proj-gallery-stage" id="galleryStage"></div>
+      <button class="proj-gallery-arrow prev" id="galleryPrev" aria-label="Anterior">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="proj-gallery-arrow next" id="galleryNext" aria-label="Siguiente">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <div class="proj-gallery-dots" id="galleryDots"></div>
+      <div class="proj-gallery-caption" id="galleryCaption"></div>
+    </div>
+
     <div class="proj-lightbox-title" id="lightboxTitle"></div>
     <div class="proj-lightbox-desc" id="lightboxDesc"></div>
+    <div class="proj-lightbox-long" id="lightboxLong"></div>
     <div class="proj-lightbox-actions">
       <a href="#" target="_blank" id="lightboxCta" class="proj-lightbox-cta primary">VER PROYECTO →</a>
       <button class="proj-lightbox-cta secondary" id="lightboxCloseBtn">VOLVER</button>
     </div>
   </div>
+
+  <!-- Descripción larga · Integración Odoo-n8n -->
+  <template id="tplOdooN8nLong">
+    <p>Proyecto de portfolio para demostrar integración real con un <strong>ERP</strong>, no solo con Google Sheets. Instalé Odoo Community (ERP open source) en Docker junto a PostgreSQL, y conecté n8n vía <strong>API JSON-RPC</strong> — el protocolo que usa Odoo en lugar de REST clásico, donde todas las peticiones van por POST a un único endpoint, cambiando el 'method' y los 'args' según la acción.</p>
+    <p>El flujo final: lee el stock real de todos los productos, filtra los que están por debajo del mínimo, agrupa los resultados y genera una <strong>tabla HTML dinámica</strong> con JavaScript, enviando un único email de alerta con todos los productos afectados vía Gmail API.</p>
+    <p>También se implementó lectura de stock en tiempo real y creación automática de <strong>pedidos de venta (sale.order)</strong> escribiendo directamente en la base de datos del ERP.</p>
+  </template>
 
 
   <!-- ════════════════════════════════════════════════════════ -->
@@ -3258,11 +3458,11 @@
   <!-- ══ CARRUSEL PROYECTOS ══ -->
   <script>
   (function() {
-    const TOTAL = 10;
     let current = 0;
 
     const cards = Array.from(document.querySelectorAll('.proj-card'));
     const dots = Array.from(document.querySelectorAll('.carousel-dot'));
+    const TOTAL = cards.length;
 
     function getPos(index) {
       let diff = index - current;
@@ -3312,19 +3512,111 @@
     const lbTitle = document.getElementById('lightboxTitle');
     const lbDesc = document.getElementById('lightboxDesc');
     const lbCta = document.getElementById('lightboxCta');
+    const lbLong = document.getElementById('lightboxLong');
+
+    // ── Galería del lightbox ──
+    const galStage = document.getElementById('galleryStage');
+    const galDots = document.getElementById('galleryDots');
+    const galCaption = document.getElementById('galleryCaption');
+    let galSlides = [];
+    let galIndex = 0;
+
+    function pauseGalleryVideos() {
+      galStage.querySelectorAll('video').forEach(v => v.pause());
+    }
+
+    function updateGalleryCaption() {
+      if (!galSlides.length) { galCaption.textContent = ''; return; }
+      const cap = galSlides[galIndex].dataset.caption || '';
+      galCaption.textContent = (galIndex + 1) + ' / ' + galSlides.length + (cap ? ' · ' + cap : '');
+    }
+
+    function showSlide(i) {
+      if (!galSlides.length) return;
+      pauseGalleryVideos();
+      galIndex = ((i % galSlides.length) + galSlides.length) % galSlides.length;
+      galSlides.forEach((s, n) => s.classList.toggle('active', n === galIndex));
+      Array.from(galDots.children).forEach((d, n) => d.classList.toggle('active', n === galIndex));
+      updateGalleryCaption();
+    }
+
+    function buildGallery(items) {
+      galStage.innerHTML = '';
+      galDots.innerHTML = '';
+      items.forEach((item, i) => {
+        const slide = document.createElement('div');
+        slide.className = 'proj-gallery-slide' + (i === 0 ? ' active' : '');
+        slide.dataset.caption = item.caption || '';
+        if (item.type === 'video') {
+          const video = document.createElement('video');
+          video.src = item.src;
+          video.controls = true;
+          video.preload = 'metadata';
+          video.setAttribute('playsinline', '');
+          slide.appendChild(video);
+        } else {
+          const img = document.createElement('img');
+          img.src = item.src;
+          img.alt = item.alt || '';
+          img.loading = 'lazy';
+          slide.appendChild(img);
+        }
+        galStage.appendChild(slide);
+
+        const dot = document.createElement('div');
+        dot.className = 'proj-gallery-dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => showSlide(i));
+        galDots.appendChild(dot);
+      });
+      galSlides = Array.from(galStage.children);
+      galIndex = 0;
+      updateGalleryCaption();
+    }
+
+    function clearGallery() {
+      pauseGalleryVideos();
+      galStage.innerHTML = '';
+      galDots.innerHTML = '';
+      galCaption.textContent = '';
+      galSlides = [];
+      galIndex = 0;
+    }
+
+    document.getElementById('galleryPrev').addEventListener('click', () => showSlide(galIndex - 1));
+    document.getElementById('galleryNext').addEventListener('click', () => showSlide(galIndex + 1));
 
     function openLightbox(card) {
-      lbImg.src = card.dataset.img;
-      lbImg.alt = card.dataset.title;
+      const gallery = card.dataset.gallery ? JSON.parse(card.dataset.gallery) : null;
+      if (gallery && gallery.length) {
+        buildGallery(gallery);
+        lightbox.classList.add('has-gallery');
+      } else {
+        clearGallery();
+        lightbox.classList.remove('has-gallery');
+        lbImg.src = card.dataset.img;
+        lbImg.alt = card.dataset.title;
+      }
+
+      const tpl = card.dataset.longTpl ? document.getElementById(card.dataset.longTpl) : null;
+      lbLong.innerHTML = '';
+      if (tpl) {
+        lbLong.appendChild(tpl.content.cloneNode(true));
+        lightbox.classList.add('has-long');
+      } else {
+        lightbox.classList.remove('has-long');
+      }
+
       lbTitle.textContent = card.dataset.title;
       lbDesc.textContent = card.dataset.desc;
-      lbCta.textContent = 'VER PROYECTO →';
+      lbCta.textContent = card.dataset.cta || 'VER PROYECTO →';
       lbCta.href = card.dataset.url;
       lightbox.classList.add('active');
+      lightbox.scrollTop = 0;
       document.body.style.overflow = 'hidden';
     }
 
     function closeLightbox() {
+      pauseGalleryVideos();
       lightbox.classList.remove('active');
       document.body.style.overflow = '';
     }
@@ -3333,6 +3625,11 @@
     document.getElementById('lightboxCloseBtn').addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('active') || !galSlides.length) return;
+      if (e.key === 'ArrowRight') showSlide(galIndex + 1);
+      if (e.key === 'ArrowLeft') showSlide(galIndex - 1);
+    });
 
     // Swipe táctil
     let touchStartX = 0;
