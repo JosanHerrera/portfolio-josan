@@ -4290,11 +4290,22 @@
 
   btnYes.addEventListener('click', () => {
     closePopup();
-    // Hace scroll a la sección de proyectos
-    const proyectosSection = document.getElementById('proyectos') || document.querySelector('#proyectos-section') || document.querySelector('[id*="proyect"]');
-    if (proyectosSection) {
-      proyectosSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    setTimeout(() => {
+      const targetCard = document.querySelector('[data-img="img-n8n-odoo.png"]');
+      if (targetCard) {
+        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => {
+          // El carrusel solo abre el lightbox si la carta ya está centrada
+          // (data-pos="0"); si está lateral, el primer click la centra.
+          if (targetCard.getAttribute('data-pos') !== '0') {
+            targetCard.click();
+          }
+          setTimeout(() => {
+            targetCard.click();
+          }, 500);
+        }, 600);
+      }
+    }, 350);
   });
 
   btnNo.addEventListener('click', closePopup);
