@@ -1651,6 +1651,232 @@
 }
 
 .ticker-row:hover .ticker-track { animation-play-state: paused; }
+
+/* ===== POPUP ÚLTIMO PROYECTO ===== */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(4px);
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+}
+.popup-overlay.visible {
+  pointer-events: all;
+  animation: overlayIn 0.4s ease forwards;
+}
+
+@keyframes overlayIn {
+  to { opacity: 1; }
+}
+
+.latest-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%) scale(0.92);
+  width: min(480px, 90vw);
+  background: rgba(8,8,14,0.96);
+  border-radius: 24px;
+  overflow: hidden;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,107,43,0.15);
+}
+
+.latest-popup.visible {
+  pointer-events: all;
+  animation: latestPopupIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes latestPopupIn {
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes latestPopupShake {
+  0%   { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  10%  { transform: translate(-44%, -50%) scale(1.03) rotate(-2.5deg); }
+  20%  { transform: translate(-56%, -50%) scale(1.03) rotate(2.5deg); }
+  30%  { transform: translate(-45%, -50%) scale(1.02) rotate(-2deg); }
+  40%  { transform: translate(-55%, -50%) scale(1.02) rotate(2deg); }
+  50%  { transform: translate(-47%, -50%) scale(1.01) rotate(-1.2deg); }
+  60%  { transform: translate(-53%, -50%) scale(1.01) rotate(1.2deg); }
+  70%  { transform: translate(-49%, -50%) scale(1) rotate(-0.6deg); }
+  80%  { transform: translate(-51%, -50%) scale(1) rotate(0.6deg); }
+  90%  { transform: translate(-50%, -50%) scale(1) rotate(-0.2deg); }
+  100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+}
+
+.latest-popup::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  padding: 1.2px;
+  background: linear-gradient(160deg,
+    rgba(255,107,43,0.6) 0%,
+    rgba(255,255,255,0.08) 40%,
+    rgba(255,255,255,0.04) 60%,
+    rgba(255,107,43,0.3) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.popup-preview-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  filter: brightness(0.85);
+}
+
+.popup-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: #FF6B2B;
+  color: #0A0A0F;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 5px 12px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.popup-badge-dot {
+  width: 6px;
+  height: 6px;
+  background: #0A0A0F;
+  border-radius: 50%;
+  animation: badgeDotPulse 1.2s infinite;
+}
+
+@keyframes badgeDotPulse {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.7; }
+}
+
+.popup-btn-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(240,237,230,0.6);
+  font-size: 14px;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.popup-btn-close:hover {
+  background: rgba(255,107,43,0.2);
+  border-color: rgba(255,107,43,0.4);
+  color: #F0EDE6;
+}
+
+.popup-body {
+  padding: 20px 24px 24px;
+}
+
+.popup-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,107,43,0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  margin-bottom: 8px;
+}
+
+.popup-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: #F0EDE6;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.popup-desc {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: rgba(240,237,230,0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.popup-btn-yes {
+  flex: 1;
+  background: #FF6B2B;
+  color: #0A0A0F;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 13px 20px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 20px rgba(255,107,43,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.popup-btn-yes:hover {
+  opacity: 0.88;
+  transform: scale(1.02);
+  box-shadow: 0 6px 28px rgba(255,107,43,0.5);
+}
+
+.popup-btn-no {
+  background: rgba(255,255,255,0.04);
+  color: rgba(240,237,230,0.45);
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 13px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.popup-btn-no:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(240,237,230,0.7);
+}
   </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -3957,12 +4183,125 @@
           clearInterval(progressInterval);
           setTimeout(() => {
             document.getElementById('loader').classList.add('hide');
+            window.dispatchEvent(new Event('loaderDone'));
           }, 500);
         }
       }, 30);
     }
   })();
   </script>
+
+<!-- ===== POPUP ÚLTIMO PROYECTO ===== -->
+<div class="popup-overlay" id="latestPopupOverlay"></div>
+
+<div class="latest-popup" id="latestPopup">
+  <div style="position:relative;">
+    <img class="popup-preview-img" src="img-n8n-odoo.png" alt="Integración Odoo-N8N">
+    <div class="popup-badge">
+      <div class="popup-badge-dot"></div>
+      ÚLTIMO PROYECTO
+    </div>
+    <button class="popup-btn-close" id="latestPopupClose">✕</button>
+  </div>
+  <div class="popup-body">
+    <div class="popup-label">🚀 Recién subido</div>
+    <div class="popup-title">INTEGRACIÓN<br>ODOO + N8N</div>
+    <div class="popup-desc">
+      AUTOMATIZACIÓN ERP · ODOO · N8N · SINCRONIZACIÓN DE DATOS EN TIEMPO REAL
+    </div>
+    <div class="popup-actions">
+      <button class="popup-btn-yes" id="latestPopupYes">
+        👀 VER PROYECTO
+      </button>
+      <button class="popup-btn-no" id="latestPopupNo">
+        Ahora no
+      </button>
+    </div>
+  </div>
+</div>
+<!-- ===== FIN POPUP ===== -->
+
+<script>
+(function() {
+  const overlay = document.getElementById('latestPopupOverlay');
+  const popup = document.getElementById('latestPopup');
+  const btnYes = document.getElementById('latestPopupYes');
+  const btnNo = document.getElementById('latestPopupNo');
+  const btnClose = document.getElementById('latestPopupClose');
+
+  function showPopup() {
+    overlay.classList.add('visible');
+    popup.classList.add('visible');
+
+    // Sonido de notificación con Web Audio API
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      function playPing(freq, time, duration) {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + time);
+        osc.frequency.exponentialRampToValueAtTime(freq * 0.8, ctx.currentTime + time + duration);
+        gain.gain.setValueAtTime(0, ctx.currentTime + time);
+        gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + time + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + time + duration);
+        osc.type = 'sine';
+        osc.start(ctx.currentTime + time);
+        osc.stop(ctx.currentTime + time + duration);
+      }
+      playPing(880, 0, 0.25);
+      playPing(1100, 0.18, 0.3);
+    } catch(e) {}
+
+    // Shake después de que aparezca
+    setTimeout(() => {
+      popup.style.animation = 'none';
+      popup.style.transform = 'translate(-50%, -50%) scale(1)';
+      popup.style.opacity = '1';
+      popup.style.animation = 'latestPopupShake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards';
+    }, 500);
+  }
+
+  // El popup aparece 5s después de que el loader termine y se muestre la pantalla de inicio
+  let armed = false;
+  function armPopup() {
+    if (armed) return;
+    armed = true;
+    setTimeout(showPopup, 5000);
+  }
+
+  window.addEventListener('loaderDone', armPopup, { once: true });
+
+  // Fallback: si el loader no llega a emitir el evento, no dejamos el popup sin mostrar
+  window.addEventListener('load', () => setTimeout(armPopup, 15000));
+
+  function closePopup() {
+    popup.style.opacity = '0';
+    popup.style.transform = 'translate(-50%, -60%) scale(0.92)';
+    popup.style.transition = 'all 0.3s ease';
+    overlay.style.opacity = '0';
+    overlay.style.transition = 'opacity 0.3s ease';
+    setTimeout(() => {
+      popup.style.display = 'none';
+      overlay.style.display = 'none';
+    }, 300);
+  }
+
+  btnYes.addEventListener('click', () => {
+    closePopup();
+    // Hace scroll a la sección de proyectos
+    const proyectosSection = document.getElementById('proyectos') || document.querySelector('#proyectos-section') || document.querySelector('[id*="proyect"]');
+    if (proyectosSection) {
+      proyectosSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+
+  btnNo.addEventListener('click', closePopup);
+  btnClose.addEventListener('click', closePopup);
+  overlay.addEventListener('click', closePopup);
+})();
+</script>
 
 </body>
 </html>
