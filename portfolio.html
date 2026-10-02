@@ -2884,6 +2884,32 @@
         </div>
       </div>
 
+      <!-- Carta 11: Pedidos por WhatsApp con IA -->
+      <div class="proj-card" data-index="11" data-pos="-1"
+           data-title="PEDIDOS POR WHATSAPP CON IA"
+           data-desc="CLAUDE API · VERIFICACIÓN STOCK EN ODOO · VENTAS Y COMPRAS AUTOMÁTICAS"
+           data-tag="AUTOMATIZACIÓN · IA · WHATSAPP · ERP"
+           data-url="https://github.com/JosanHerrera/pedidos-whatsapp-ia-odoo-n8n"
+           data-cta="VER CÓDIGO EN GITHUB →"
+           data-long-tpl="tplWhatsappIaLong"
+           data-img="img-n8n-whatsapp.png"
+           data-gallery='[{"type":"img","src":"img-n8n-whatsapp.png","alt":"Flujo completo de 21 nodos en n8n","caption":"FLUJO COMPLETO DE 21 NODOS EN N8N"},{"type":"img","src":"img-n8n-whatsapp-2.png","alt":"Docker Desktop con los contenedores activos","caption":"DOCKER DESKTOP · CONTENEDORES ACTIVOS"},{"type":"img","src":"img-n8n-whatsapp-3.png","alt":"Túnel de ngrok activo","caption":"TÚNEL DE NGROK ACTIVO"},{"type":"img","src":"img-n8n-whatsapp-4.png","alt":"Pedido generado en Odoo Ventas","caption":"PEDIDO GENERADO EN ODOO VENTAS"},{"type":"img","src":"img-n8n-whatsapp-5.png","alt":"Orden de compra generada en Odoo Compras","caption":"ORDEN DE COMPRA EN ODOO COMPRAS"},{"type":"img","src":"img-n8n-whatsapp-6.png","alt":"Email de aviso a almacén","caption":"EMAIL DE AVISO A ALMACÉN"},{"type":"img","src":"img-n8n-whatsapp-7.png","alt":"Email de aviso a compras","caption":"EMAIL DE AVISO A COMPRAS"},{"type":"video","src":"vid-n8n-whatsapp.mp4","caption":"DEMO EN VÍDEO"}]'>
+        <img src="img-n8n-whatsapp.png" alt="Pedidos por WhatsApp con IA">
+        <div class="proj-card-info">
+          <div>
+            <div class="proj-card-tag">AUTOMATIZACIÓN · IA · WHATSAPP · ERP</div>
+            <div class="proj-card-title">PEDIDOS POR WHATSAPP CON IA</div>
+            <div class="proj-card-desc">CLAUDE API · VERIFICACIÓN STOCK EN ODOO · VENTAS Y COMPRAS AUTOMÁTICAS</div>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-link">VER PROYECTO →</span>
+            <div class="proj-card-arrow">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- Navegación -->
@@ -2903,6 +2929,7 @@
         <div class="carousel-dot" data-dot="8"></div>
         <div class="carousel-dot" data-dot="9"></div>
         <div class="carousel-dot" data-dot="10"></div>
+        <div class="carousel-dot" data-dot="11"></div>
       </div>
       <button class="carousel-btn" id="nextBtn" aria-label="Siguiente">
         <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -2943,6 +2970,13 @@
     <p>Proyecto de portfolio para demostrar integración real con un <strong>ERP</strong>, no solo con Google Sheets. Instalé Odoo Community (ERP open source) en Docker junto a PostgreSQL, y conecté n8n vía <strong>API JSON-RPC</strong> — el protocolo que usa Odoo en lugar de REST clásico, donde todas las peticiones van por POST a un único endpoint, cambiando el 'method' y los 'args' según la acción.</p>
     <p>El flujo final: lee el stock real de todos los productos, filtra los que están por debajo del mínimo, agrupa los resultados y genera una <strong>tabla HTML dinámica</strong> con JavaScript, enviando un único email de alerta con todos los productos afectados vía Gmail API.</p>
     <p>También se implementó lectura de stock en tiempo real y creación automática de <strong>pedidos de venta (sale.order)</strong> escribiendo directamente en la base de datos del ERP.</p>
+  </template>
+
+  <!-- Descripción larga · Pedidos por WhatsApp con IA -->
+  <template id="tplWhatsappIaLong">
+    <p>Sistema de pedidos automatizado para <strong>Cash Moisés</strong> (supermercado mayorista): un cliente escribe su pedido por WhatsApp, <strong>Claude (Anthropic)</strong> lo interpreta y extrae productos y cantidades del texto libre, y el sistema los cruza contra un catálogo de 100 productos antes de consultar el stock real en <strong>Odoo (ERP)</strong> vía API JSON-RPC.</p>
+    <p>Según haya existencias o no, el flujo decide solo: si hay stock, genera el <strong>pedido de venta</strong> en Odoo, confirma al cliente por WhatsApp y avisa por email al almacén para que lo prepare. Si no hay stock suficiente, genera una <strong>orden de compra</strong> al proveedor, avisa al cliente de la falta y notifica por email a compras.</p>
+    <p>Todo el proceso corre en local con <strong>Docker</strong> (Odoo, PostgreSQL y n8n), conectado a internet mediante un túnel de <strong>ngrok</strong> para que Twilio pueda entregar los mensajes de WhatsApp. El flujo completo tiene <strong>21 nodos</strong> conectados entre sí, sin intervención manual en ningún punto.</p>
   </template>
 
 
@@ -4196,7 +4230,7 @@
 
 <div class="latest-popup" id="latestPopup">
   <div style="position:relative;">
-    <img class="popup-preview-img" src="img-n8n-odoo.png" alt="Integración Odoo-N8N">
+    <img class="popup-preview-img" src="img-n8n-whatsapp.png" alt="Pedidos por WhatsApp con IA">
     <div class="popup-badge">
       <div class="popup-badge-dot"></div>
       ÚLTIMO PROYECTO
@@ -4205,9 +4239,9 @@
   </div>
   <div class="popup-body">
     <div class="popup-label">🚀 Recién subido</div>
-    <div class="popup-title">INTEGRACIÓN<br>ODOO + N8N</div>
+    <div class="popup-title">PEDIDOS POR<br>WHATSAPP CON IA</div>
     <div class="popup-desc">
-      AUTOMATIZACIÓN ERP · ODOO · N8N · SINCRONIZACIÓN DE DATOS EN TIEMPO REAL
+      AUTOMATIZACIÓN ERP · IA · WHATSAPP · VENTAS Y COMPRAS EN TIEMPO REAL
     </div>
     <div class="popup-actions">
       <button class="popup-btn-yes" id="latestPopupYes">
@@ -4229,30 +4263,113 @@
   const btnNo = document.getElementById('latestPopupNo');
   const btnClose = document.getElementById('latestPopupClose');
 
+  /* ─────────────────────────────────────────────────────────────
+     SONIDO DE NOTIFICACIÓN · móvil, tablet y PC
+
+     Los navegadores no dejan sonar nada hasta que el usuario ha
+     interactuado con la página (política de autoplay). Como el
+     loader es automático, el popup puede salir sin que haya habido
+     ni un solo click → el AudioContext nace 'suspended' y el ping
+     se pierde. Por eso:
+       1) desbloqueamos el audio en el primer gesto real (tap,
+          click o tecla), con el truco del buffer silencioso que
+          necesita iOS;
+       2) si el popup ya está abierto esperando sonido, el ping
+          se dispara en ese mismo instante.
+     ───────────────────────────────────────────────────────────── */
+  let audioCtx = null;
+  let soundPending = false;
+
+  function getCtx() {
+    if (audioCtx) return audioCtx;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    try { audioCtx = new AC(); } catch(e) { return null; }
+    return audioCtx;
+  }
+
+  function emitPing(ctx, freq, time, duration) {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.setValueAtTime(freq, ctx.currentTime + time);
+    osc.frequency.exponentialRampToValueAtTime(freq * 0.8, ctx.currentTime + time + duration);
+    gain.gain.setValueAtTime(0, ctx.currentTime + time);
+    gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + time + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + time + duration);
+    osc.type = 'sine';
+    osc.start(ctx.currentTime + time);
+    osc.stop(ctx.currentTime + time + duration);
+  }
+
+  function fireNotificationSound() {
+    const ctx = getCtx();
+    if (!ctx || ctx.state !== 'running') return false;
+    try {
+      emitPing(ctx, 880, 0, 0.25);
+      emitPing(ctx, 1100, 0.18, 0.3);
+    } catch(e) { return false; }
+    // Vibración corta en móvil/tablet Android, como una notificación real
+    try { if (navigator.vibrate) navigator.vibrate([40, 60, 40]); } catch(e) {}
+    return true;
+  }
+
+  function playNotification() {
+    const ctx = getCtx();
+    if (!ctx) return;
+    if (fireNotificationSound()) return;
+    // Audio aún bloqueado: lo dejamos armado hasta el primer gesto
+    soundPending = true;
+    try {
+      ctx.resume().then(() => {
+        if (soundPending && fireNotificationSound()) soundPending = false;
+      }).catch(() => {});
+    } catch(e) {}
+  }
+
+  const UNLOCK_EVENTS = ['pointerdown', 'touchend', 'click', 'keydown'];
+
+  function unlockAudio(e) {
+    const ctx = getCtx();
+    if (!ctx) { removeUnlockListeners(); return; }
+    // Si el gesto que desbloquea es el propio click sobre el popup
+    // (ver proyecto / ahora no / cerrar / overlay), no tiene sentido
+    // hacerlo sonar justo cuando se está cerrando.
+    const t = e && e.target;
+    const onPopup = !!(t && t.nodeType === 1 &&
+      (t === overlay || (t.closest && t.closest('#latestPopup'))));
+
+    // iOS no considera desbloqueado el contexto hasta que suena algo
+    // dentro del propio gesto, aunque sea un buffer vacío.
+    try {
+      const src = ctx.createBufferSource();
+      src.buffer = ctx.createBuffer(1, 1, 22050);
+      src.connect(ctx.destination);
+      src.start(0);
+    } catch(e2) {}
+
+    const done = () => {
+      if (!onPopup && soundPending && fireNotificationSound()) soundPending = false;
+      if (ctx.state === 'running') removeUnlockListeners();
+    };
+    try { ctx.resume().then(done).catch(() => {}); } catch(e2) {}
+    done();
+  }
+
+  function removeUnlockListeners() {
+    UNLOCK_EVENTS.forEach(ev => document.removeEventListener(ev, unlockAudio, true));
+  }
+
+  // Captura en fase de captura para que el gesto cuente aunque el
+  // click lo consuma otro handler (botones del popup, nav, carrusel…)
+  UNLOCK_EVENTS.forEach(ev => document.addEventListener(ev, unlockAudio, true));
+
   function showPopup() {
     overlay.classList.add('visible');
     popup.classList.add('visible');
 
-    // Sonido de notificación con Web Audio API
-    try {
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      function playPing(freq, time, duration) {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.frequency.setValueAtTime(freq, ctx.currentTime + time);
-        osc.frequency.exponentialRampToValueAtTime(freq * 0.8, ctx.currentTime + time + duration);
-        gain.gain.setValueAtTime(0, ctx.currentTime + time);
-        gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + time + 0.01);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + time + duration);
-        osc.type = 'sine';
-        osc.start(ctx.currentTime + time);
-        osc.stop(ctx.currentTime + time + duration);
-      }
-      playPing(880, 0, 0.25);
-      playPing(1100, 0.18, 0.3);
-    } catch(e) {}
+    playNotification();
 
     // Shake después de que aparezca
     setTimeout(() => {
@@ -4277,6 +4394,9 @@
   window.addEventListener('load', () => setTimeout(armPopup, 15000));
 
   function closePopup() {
+    // Si el audio seguía bloqueado, el propio click de cierre lo
+    // desbloquearía y sonaría el ping con el popup ya desapareciendo.
+    soundPending = false;
     popup.style.opacity = '0';
     popup.style.transform = 'translate(-50%, -60%) scale(0.92)';
     popup.style.transition = 'all 0.3s ease';
@@ -4291,7 +4411,7 @@
   btnYes.addEventListener('click', () => {
     closePopup();
     setTimeout(() => {
-      const targetCard = document.querySelector('[data-img="img-n8n-odoo.png"]');
+      const targetCard = document.querySelector('[data-img="img-n8n-whatsapp.png"]');
       if (targetCard) {
         targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
         setTimeout(() => {
