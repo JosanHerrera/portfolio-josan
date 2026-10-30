@@ -2552,6 +2552,64 @@
           </div>
         </a>
 
+        <!-- Expandable Currículums card -->
+        <div class="liquid-glass rounded-[20px] sm:rounded-[28px] hover:bg-white/5 transition-colors">
+          <!-- Header — always visible -->
+          <div class="p-5 sm:p-6 flex flex-col justify-between min-h-[170px] sm:min-h-[200px]">
+            <div>
+              <p class="font-mono text-[9px] sm:text-[10px] text-[#FF6B2B] uppercase mb-2 sm:mb-3">CURRÍCULUM VITAE</p>
+              <h3 class="font-anton text-[17px] sm:text-[20px] text-[#F0EDE6] mb-1 sm:mb-2">CURRÍCULUMS</h3>
+              <p class="font-mono text-[10px] sm:text-[12px] text-[#F0EDE6]/60 uppercase">DESARROLLO DE SOFTWARE · AUTOMATIZACIÓN CON IA</p>
+            </div>
+            <div class="flex items-center justify-between mt-3 sm:mt-4">
+              <span class="font-mono text-[10px] sm:text-[11px] text-[#FF6B2B] bg-[#FF6B2B]/10 rounded-full px-3 py-1">CV</span>
+              <button onclick="toggleCvs()" id="cv-toggle"
+                      class="font-mono text-[9px] sm:text-[10px] text-[#FF6B2B] uppercase hover:opacity-70 transition-opacity">
+                VER 4 CURRÍCULUMS →
+              </button>
+            </div>
+          </div>
+          <!-- Expandable panel -->
+          <div id="cv-panel" class="cert-panel px-5 sm:px-6">
+            <div class="border-t border-white/10 pt-4 pb-5 flex flex-col gap-4">
+              <p class="font-mono text-[9px] sm:text-[10px] text-[#FF6B2B] uppercase">DESARROLLO DE SOFTWARE</p>
+              <a href="./Curriculums/CV_JoseAntonioHerrera_Programacion.pdf" target="_blank" rel="noopener"
+                 class="flex items-center justify-between hover:opacity-80 transition-opacity cursor-pointer">
+                <div>
+                  <p class="font-mono text-[10px] sm:text-[11px] text-[#F0EDE6]/80 uppercase">CV Desarrollo</p>
+                  <p class="font-mono text-[9px] sm:text-[10px] text-[#F0EDE6]/40 uppercase">Versión diseñada</p>
+                </div>
+                <span class="font-mono text-[9px] text-[#FF6B2B] uppercase ml-4 flex-shrink-0">📄 PDF</span>
+              </a>
+              <a href="./Curriculums/CV_JoseAntonioHerrera_Programacion_ATS.pdf" target="_blank" rel="noopener"
+                 class="flex items-center justify-between hover:opacity-80 transition-opacity cursor-pointer">
+                <div>
+                  <p class="font-mono text-[10px] sm:text-[11px] text-[#F0EDE6]/80 uppercase">CV Desarrollo · ATS <span class="text-[8px] sm:text-[9px] text-[#FF6B2B] bg-[#FF6B2B]/10 rounded-full px-2 py-[1px] ml-1">ATS</span></p>
+                  <p class="font-mono text-[9px] sm:text-[10px] text-[#F0EDE6]/40 uppercase">Optimizado para filtros de selección</p>
+                </div>
+                <span class="font-mono text-[9px] text-[#FF6B2B] uppercase ml-4 flex-shrink-0">📄 PDF</span>
+              </a>
+              <p class="font-mono text-[9px] sm:text-[10px] text-[#FF6B2B] uppercase border-t border-white/10 pt-4">AUTOMATIZACIÓN CON IA</p>
+              <a href="./Curriculums/CV_JoseAntonioHerrera_Automatizacion.pdf" target="_blank" rel="noopener"
+                 class="flex items-center justify-between hover:opacity-80 transition-opacity cursor-pointer">
+                <div>
+                  <p class="font-mono text-[10px] sm:text-[11px] text-[#F0EDE6]/80 uppercase">CV Automatización</p>
+                  <p class="font-mono text-[9px] sm:text-[10px] text-[#F0EDE6]/40 uppercase">Versión diseñada</p>
+                </div>
+                <span class="font-mono text-[9px] text-[#FF6B2B] uppercase ml-4 flex-shrink-0">📄 PDF</span>
+              </a>
+              <a href="./Curriculums/CV_JoseAntonioHerrera_Automatizacion_ATS.pdf" target="_blank" rel="noopener"
+                 class="flex items-center justify-between hover:opacity-80 transition-opacity cursor-pointer">
+                <div>
+                  <p class="font-mono text-[10px] sm:text-[11px] text-[#F0EDE6]/80 uppercase">CV Automatización · ATS <span class="text-[8px] sm:text-[9px] text-[#FF6B2B] bg-[#FF6B2B]/10 rounded-full px-2 py-[1px] ml-1">ATS</span></p>
+                  <p class="font-mono text-[9px] sm:text-[10px] text-[#F0EDE6]/40 uppercase">Optimizado para filtros de selección</p>
+                </div>
+                <span class="font-mono text-[9px] text-[#FF6B2B] uppercase ml-4 flex-shrink-0">📄 PDF</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -3374,6 +3432,13 @@
       const btn   = document.getElementById('dam-toggle');
       panel.classList.toggle('open');
       btn.textContent = panel.classList.contains('open') ? 'COLAPSAR ↑' : 'VER 2 DOCUMENTOS →';
+    }
+
+    function toggleCvs() {
+      const panel = document.getElementById('cv-panel');
+      const btn   = document.getElementById('cv-toggle');
+      panel.classList.toggle('open');
+      btn.textContent = panel.classList.contains('open') ? 'COLAPSAR ↑' : 'VER 4 CURRÍCULUMS →';
     }
 
     const CERT_MODAL_DEFAULT = {
