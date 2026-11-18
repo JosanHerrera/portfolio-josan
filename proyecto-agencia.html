@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agencia de Empleo IA — JOSAN.DEV</title>
+  <meta name="description" content="Un equipo de agentes de IA (n8n + Telegram) que me busca empleo cada noche por céntimos.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#0A0A0F; --cream:#F0EDE6; --accent:#FF6B2B; --muted:rgba(240,237,230,0.55); }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--cream); font-family:'Syne',sans-serif; line-height:1.7; overflow-x:hidden; }
+    a { color:inherit; text-decoration:none; }
+    .wrap { max-width:960px; margin:0 auto; padding:0 20px; }
+    .topbar { position:sticky; top:0; z-index:10; background:rgba(10,10,15,.85); backdrop-filter:blur(8px); border-bottom:1px solid rgba(255,255,255,.06); }
+    .topbar .wrap { max-width:1200px; display:flex; justify-content:space-between; align-items:center; height:58px; }
+    .logo { font-family:'Anton',sans-serif; letter-spacing:.04em; font-size:20px; }
+    .logo span { color:var(--accent); }
+    .back { font-family:'Space Mono',monospace; font-size:12px; color:var(--accent); letter-spacing:.06em; }
+    .back:hover { opacity:.7; }
+    .eyebrow { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.14em; color:var(--accent); text-transform:uppercase; text-shadow:0 0 12px rgba(255,107,43,.55); }
+    h1 { font-family:'Anton',sans-serif; text-transform:uppercase; line-height:1.02; font-size:clamp(34px,6vw,68px); margin:16px 0 22px; font-weight:400; }
+    h1 span { color:var(--accent); }
+    h2 { font-family:'Anton',sans-serif; text-transform:uppercase; font-weight:400; font-size:clamp(26px,4vw,40px); line-height:1.1; }
+    h2::after { content:''; display:block; width:56px; height:3px; background:var(--accent); margin-top:12px; }
+    .hero { padding:72px 0 40px; }
+    .lead { font-size:17px; color:rgba(240,237,230,.78); max-width:760px; }
+    .cta { display:inline-flex; align-items:center; gap:12px; margin-top:30px; background:var(--accent); color:var(--bg); font-family:'Anton',sans-serif; text-transform:uppercase; letter-spacing:.04em; font-size:20px; padding:18px 36px; border-radius:999px; box-shadow:0 4px 28px rgba(255,107,43,.45); transition:transform .2s, box-shadow .2s; }
+    .cta:hover { transform:translateY(-2px); box-shadow:0 8px 36px rgba(255,107,43,.65); }
+    .cta-note { font-family:'Space Mono',monospace; font-size:11px; color:rgba(240,237,230,.45); margin-top:12px; }
+    section.blk { padding:56px 0; border-top:1px solid rgba(255,255,255,.06); }
+    section.blk h2 { margin-bottom:28px; }
+    p + p { margin-top:14px; }
+    .team { display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:14px; }
+    .agent { border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.02); border-radius:16px; padding:20px; }
+    .agent.ia { border-color:rgba(255,107,43,.4); background:rgba(255,107,43,.05); }
+    .agent h3 { font-family:'Anton',sans-serif; font-weight:400; font-size:22px; text-transform:uppercase; }
+    .agent h3 small { font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); text-transform:none; margin-left:6px; }
+    .agent .role { font-family:'Space Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:.08em; text-transform:uppercase; margin:2px 0 8px; }
+    .agent p { font-size:14px; color:rgba(240,237,230,.75); }
+    .tag { display:inline-block; margin-top:10px; font-family:'Space Mono',monospace; font-size:10px; padding:4px 10px; border-radius:999px; border:1px solid rgba(240,237,230,.25); color:rgba(240,237,230,.7); }
+    .agent.ia .tag { border-color:var(--accent); color:var(--accent); }
+    ol.steps { list-style:none; counter-reset:s; display:grid; gap:12px; }
+    ol.steps li { counter-increment:s; position:relative; padding:16px 18px 16px 62px; border:1px solid rgba(255,255,255,.08); border-radius:14px; background:rgba(255,255,255,.02); }
+    ol.steps li::before { content:counter(s); position:absolute; left:16px; top:50%; transform:translateY(-50%); width:32px; height:32px; border-radius:50%; background:var(--accent); color:var(--bg); font-family:'Anton',sans-serif; display:flex; align-items:center; justify-content:center; }
+    ul.plain { list-style:none; display:grid; gap:10px; }
+    ul.plain li { padding-left:22px; position:relative; }
+    ul.plain li::before { content:'▸'; position:absolute; left:0; color:var(--accent); }
+    .shots { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:22px; align-items:start; }
+    figure { border:1px solid rgba(255,107,43,.25); border-radius:16px; overflow:hidden; background:#000; }
+    figure img { width:100%; display:block; }
+    figcaption { padding:12px 16px; font-family:'Space Mono',monospace; font-size:11px; color:var(--muted); background:rgba(255,255,255,.03); }
+    video { width:100%; border-radius:16px; border:1px solid rgba(255,107,43,.25); background:#000; display:block; }
+    .quote { border-left:3px solid var(--accent); padding:6px 0 6px 20px; margin:22px 0; font-size:18px; color:var(--cream); }
+    .priv { border:1px solid rgba(255,107,43,.35); background:rgba(255,107,43,.05); border-radius:16px; padding:24px; }
+    strong { color:var(--cream); }
+    footer { border-top:1px solid rgba(255,255,255,.06); padding:22px 20px; margin-top:20px; }
+    footer .in { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+    footer p { font-family:'Anton',sans-serif; font-size:12px; color:rgba(240,237,230,.5); text-transform:uppercase; }
+    footer a { font-style:italic; color:var(--accent); font-size:14px; }
+    @media (max-width:640px) { .hero { padding:48px 0 28px; } section.blk { padding:40px 0; } .cta { font-size:17px; padding:16px 26px; } }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="wrap">
+      <a class="logo" href="portfolio.html">JOSAN<span>.DEV</span></a>
+      <a class="back" href="portfolio.html#proyectos-section">← VOLVER AL PORTFOLIO</a>
+    </div>
+  </div>
+
+  <main>
+    <div class="wrap hero">
+      <p class="eyebrow">// PROYECTO DESTACADO · FUNCIONA DE VERDAD CADA NOCHE</p>
+      <h1>Mi agencia de IA me busca empleo <span>mientras trabajo</span></h1>
+      <p class="lead">Trabajo a turnos en logística y me queda muy poco tiempo para buscar empleo en el sector. Así que construí un equipo de agentes de IA que lo hace por mí cada noche: leen las ofertas, las puntúan, me escriben la carta y me avisan al móvil. Yo solo decido. Esta torre reproduce el turno real de la última jornada.</p>
+      <a class="cta" href="agencia-ia.html">▶ Ver la torre en vivo</a>
+      <p class="cta-note">Datos reales del último turno, sin nombres de empresa ni datos personales. Pausa, repite y mira lo que piensa cada agente.</p>
+    </div>
+
+    <section class="blk"><div class="wrap">
+      <h2>El equipo</h2>
+      <div class="team">
+        <div class="agent"><h3>Visión <small>ex-RADAR</small></h3><p class="role">Explorador</p><p>Lee las alertas del correo, saca cada oferta y quita las repetidas.</p><span class="tag">No usa IA</span></div>
+        <div class="agent ia"><h3>Natasha <small>ex-FILTRO</small></h3><p class="role">Analista</p><p>Descarta con reglas lo que no encaja y puntúa de 0 a 100 el resto.</p><span class="tag">IA barata</span></div>
+        <div class="agent ia"><h3>Tony Stark <small>ex-PLUMA</small></h3><p class="role">Redactor</p><p>Escribe la carta a medida de las mejores ofertas.</p><span class="tag">IA de calidad · el que más gasta</span></div>
+        <div class="agent"><h3>Furia <small>ex-CARTERO</small></h3><p class="role">Mensajero</p><p>Me lo lleva todo al móvil por Telegram.</p><span class="tag">No usa IA</span></div>
+        <div class="agent"><h3>Wanda <small>ex-BRÚJULA</small></h3><p class="role">Coordinadora</p><p>Arranca el turno, vigila el gasto y publica el resumen en esta web.</p><span class="tag">No usa IA</span></div>
+        <div class="agent"><h3>Josan <small>yo</small></h3><p class="role">Humano al mando</p><p>Apruebo o descarto desde el móvil. Nada se envía sin mi OK.</p><span class="tag">Última palabra</span></div>
+      </div>
+    </div></section>
+
+    <section class="blk"><div class="wrap">
+      <h2>Cómo funciona</h2>
+      <ol class="steps">
+        <li><strong>Alertas, no robots.</strong> Configuré alertas de empleo en LinkedIn, InfoJobs, Joppy y Tecnoempleo que me llegan al correo. Nada de bots metiéndose en esas webs: eso te puede costar la cuenta.</li>
+        <li><strong>Visión</strong> lee esos correos y saca las ofertas nuevas.</li>
+        <li><strong>Natasha</strong> descarta lo que no encaja (inglés alto, presencial lejos, comercial…) y puntúa el resto.</li>
+        <li><strong>Tony Stark</strong> escribe una carta a medida para las mejores.</li>
+        <li><strong>Furia</strong> me lo manda todo al móvil por Telegram.</li>
+        <li><strong>Yo apruebo</strong>, y me quedo con el enlace, la carta y el CV listos para aplicar en un minuto.</li>
+        <li><strong>Wanda</strong> coordina el turno, vigila el gasto y publica el resumen aquí.</li>
+      </ol>
+    </div></section>
+
+    <section class="blk"><div class="wrap">
+      <h2>Lo que gasta cada agente</h2>
+      <ul class="plain">
+        <li>Solo <strong>Natasha</strong> y <strong>Tony Stark</strong> usan IA: puntuar y escribir son las dos tareas que piden criterio.</li>
+        <li><strong>Visión, Furia y Wanda</strong> no usan IA: leer, mover y coordinar son reglas y código normal, y eso es <strong>gratis</strong>.</li>
+        <li>Tony Stark es el que más gasta (escribir cuesta), Natasha poco (puntuar es barato), el resto cero.</li>
+        <li>Un turno completo cuesta <strong>unos 7-8 céntimos</strong>. Al mes, un par de euros. Hay dos frenos: un tope por turno y un límite de <strong>3 $/mes</strong> en la cuenta de IA.</li>
+      </ul>
+    </div></section>
+
+    <section class="blk"><div class="wrap">
+      <h2>Pantallazos</h2>
+      <div class="shots">
+        <figure><img src="media/agencia/telegram.png" alt="Bot de Telegram con las ofertas y los botones Aprobar, Descartar y Ver carta" loading="lazy"><figcaption>El bot de Telegram: cada oferta con su carta y los botones Aprobar / Descartar / Ver carta. El último clic es siempre mío.</figcaption></figure>
+        <figure><img src="media/agencia/n8n-flujo.png" alt="Flujo de n8n de la agencia" loading="lazy"><figcaption>El flujo en n8n: el motor real, discreto y barato, que hay detrás de la torre.</figcaption></figure>
+      </div>
+    </div></section>
+
+    <section class="blk"><div class="wrap">
+      <h2>El vídeo</h2>
+      <video controls preload="metadata" playsinline poster="media/agencia/torre.png">
+        <source src="media/agencia/demo.mp4" type="video/mp4">
+        Tu navegador no puede reproducir el vídeo.
+      </video>
+      <p class="cta-note">n8n y Telegram en pantalla dividida.</p>
+    </div></section>
+
+    <section class="blk"><div class="wrap">
+      <h2>Por qué lo hice así</h2>
+      <p>Los vídeos de «10 agentes de IA autónomos» se ven espectaculares, pero esconden dos cosas: <strong>cuestan mucho dinero y fallan a menudo</strong>. Cada agente «piensa» en bucle, llama a la IA una y otra vez y se habla con los demás; el gasto se dispara a decenas o cientos de euros al mes, de forma impredecible.</p>
+      <p>Yo lo monté con <strong>n8n</strong>, usando IA <strong>solo donde hace falta criterio</strong> y código para lo mecánico. Resultado: el mismo trabajo por céntimos, de forma fiable, y usándolo de verdad todos los días.</p>
+      <ul class="plain" style="margin-top:20px">
+        <li><strong>Alertas, no bots.</strong> Leo los correos que los portales me mandan; no meto robots en sus webs. Así protejo mis cuentas.</li>
+        <li><strong>La persona decide.</strong> La IA prepara; yo apruebo. Es más seguro y más honesto.</li>
+        <li><strong>Escucha activa en Telegram</strong> en lugar de webhooks: mi n8n corre en Docker en mi PC y no está abierto a internet.</li>
+      </ul>
+      <p class="quote">Y voy a ser honesto: <strong>la torre es una fachada</strong>. No es «el sistema trabajando», es una forma bonita de enseñar lo que hace. El motor de verdad es n8n. Me parece más valioso enseñar eso —y saber <strong>cuándo NO usar un agente</strong>— que fingir una película de ciencia ficción.</p>
+    </div></section>
+
+    <section class="blk"><div class="wrap">
+      <h2>Privacidad</h2>
+      <div class="priv">
+        <p>Regla de oro del proyecto: <strong>ningún dato privado mío ni de ninguna empresa se sube a ningún lado.</strong></p>
+        <ul class="plain" style="margin-top:14px">
+          <li>El resumen que alimenta la torre lleva <strong>solo</strong>: puesto, provincia/modalidad, portal, nota y motivo. Nunca nombre de empresa, enlaces, emails, teléfonos ni datos míos.</li>
+          <li>El código usa una <strong>lista blanca</strong> de campos, limpia los textos por si se colara algo, y hay un <strong>test automático</strong> que comprueba que no se escape nada sensible.</li>
+          <li>Las <strong>claves</strong> (Telegram, IA, GitHub) viven dentro de n8n, nunca en un archivo ni en el código.</li>
+          <li>La hoja con los datos completos (empresas, enlaces) es <strong>privada</strong>, solo mía.</li>
+        </ul>
+      </div>
+      <div style="text-align:center;margin-top:44px">
+        <a class="cta" href="agencia-ia.html">▶ Ver la torre en vivo</a>
+      </div>
+    </div></section>
+  </main>
+
+  <footer>
+    <div class="in">
+      <p>JOSÉ ANTONIO HERRERA SOTO · 2026</p>
+      <a href="https://github.com/JosanHerrera" target="_blank" rel="noopener">@JosanHerrera</a>
+    </div>
+  </footer>
+
+</body>
+</html>

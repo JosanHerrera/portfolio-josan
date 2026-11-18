@@ -1877,6 +1877,31 @@
   background: rgba(255,255,255,0.08);
   color: rgba(240,237,230,0.7);
 }
+
+/* ===== SECCIÓN DESTACADA · AGENCIA DE EMPLEO IA ===== */
+#agencia-ia-section { background:#0A0A0F; padding:96px 0; position:relative; }
+.ag-wrap { max-width:1200px; margin:0 auto; padding:0 20px; display:grid; grid-template-columns:1.05fr 1fr; gap:48px; align-items:center; }
+.ag-eyebrow { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.14em; color:#FF6B2B; text-transform:uppercase; text-shadow:0 0 12px rgba(255,107,43,.55); margin-bottom:16px; }
+.ag-title { font-family:'Anton',sans-serif; text-transform:uppercase; line-height:1.02; color:#F0EDE6; font-size:clamp(30px,4.4vw,56px); }
+.ag-title span { color:#FF6B2B; }
+.ag-lead { font-family:'Syne',sans-serif; color:rgba(240,237,230,.72); font-size:16px; line-height:1.65; margin:20px 0 26px; }
+.ag-stats { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:28px; }
+.ag-stat { flex:1 1 110px; border:1px solid rgba(255,107,43,.28); background:rgba(255,107,43,.05); border-radius:14px; padding:14px 16px; }
+.ag-stat b { display:block; font-family:'Anton',sans-serif; font-size:30px; color:#FF6B2B; font-weight:400; text-shadow:0 0 14px rgba(255,107,43,.45); }
+.ag-stat small { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:rgba(240,237,230,.55); }
+.ag-btn { display:inline-flex; align-items:center; gap:10px; background:#FF6B2B; color:#0A0A0F; font-family:'Anton',sans-serif; text-transform:uppercase; letter-spacing:.04em; font-size:16px; padding:14px 26px; border-radius:999px; box-shadow:0 4px 24px rgba(255,107,43,.4); transition:transform .2s, box-shadow .2s; }
+.ag-btn:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(255,107,43,.6); }
+.ag-note { font-family:'Space Mono',monospace; font-size:11px; color:rgba(240,237,230,.45); margin-top:14px; line-height:1.6; max-width:460px; }
+.ag-screen { position:relative; display:block; border-radius:18px; overflow:hidden; border:1px solid rgba(255,107,43,.35); box-shadow:0 24px 60px rgba(0,0,0,.7), 0 0 50px rgba(255,107,43,.12); background:#000; }
+.ag-screen img { width:100%; display:block; transition:transform .5s, filter .3s; filter:brightness(.85); }
+.ag-screen:hover img { transform:scale(1.04); filter:brightness(1); }
+.ag-live { position:absolute; top:14px; left:14px; display:flex; align-items:center; gap:7px; background:rgba(10,10,15,.8); border:1px solid rgba(255,107,43,.5); color:#FF6B2B; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.14em; padding:6px 12px; border-radius:999px; }
+.ag-live i { width:7px; height:7px; border-radius:50%; background:#FF6B2B; box-shadow:0 0 8px #FF6B2B; animation:agBlink 1.2s infinite; }
+@keyframes agBlink { 50% { opacity:.25; } }
+.ag-play { position:absolute; inset:0; margin:auto; width:76px; height:76px; border-radius:50%; background:#FF6B2B; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 10px rgba(255,107,43,.2), 0 8px 30px rgba(255,107,43,.5); transition:transform .2s; }
+.ag-screen:hover .ag-play { transform:scale(1.1); }
+.ag-play svg { width:28px; height:28px; fill:#0A0A0F; margin-left:4px; }
+@media (max-width:860px) { .ag-wrap { grid-template-columns:1fr; gap:32px; } #agencia-ia-section { padding:64px 0; } .ag-screen { order:-1; } }
   </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -2675,6 +2700,39 @@
 
 
   <!-- ════════════════════════════════════════════════════════ -->
+  <!-- SECTION 4b — AGENCIA DE EMPLEO IA (destacado)           -->
+  <!-- ════════════════════════════════════════════════════════ -->
+  <section id="agencia-ia-section">
+    <div class="ag-wrap">
+      <div>
+        <p class="ag-eyebrow">// PROYECTO DESTACADO · FUNCIONA DE VERDAD CADA NOCHE</p>
+        <h2 class="ag-title">Mi agencia de IA me busca empleo <span>mientras trabajo</span></h2>
+        <p class="ag-lead">Trabajo a turnos en logística y me queda muy poco tiempo para buscar empleo en el sector. Así que construí un equipo de agentes de IA que lo hace por mí cada noche: leen las ofertas, las puntúan, me escriben la carta y me avisan al móvil. Yo solo decido. Esta torre reproduce el turno real de la última jornada.</p>
+        <div class="ag-stats">
+          <div class="ag-stat"><b id="agStatOfertas">27</b><small>Ofertas leídas</small></div>
+          <div class="ag-stat"><b id="agStatCartas">5</b><small>Cartas escritas</small></div>
+          <div class="ag-stat"><b id="agStatCoste">0,08 €</b><small>Coste del turno</small></div>
+        </div>
+        <a class="ag-btn" href="proyecto-agencia.html">Ver la agencia en vivo →</a>
+        <p class="ag-note">Datos reales del último turno, sin nombres de empresa ni datos personales. Pausa, repite y mira lo que piensa cada agente.</p>
+      </div>
+      <a class="ag-screen" href="proyecto-agencia.html" aria-label="Ver el proyecto Agencia de Empleo IA">
+        <img src="media/agencia/torre.png" alt="Torre pixel de la Agencia de Empleo IA" loading="lazy">
+        <span class="ag-live"><i></i>EN VIVO</span>
+        <span class="ag-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></span>
+      </a>
+    </div>
+  </section>
+  <script>
+  fetch('datos/hoy.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():Promise.reject();}).then(function(j){
+    if(!j||!Array.isArray(j.offers)||!j.offers.length)return;
+    document.getElementById('agStatOfertas').textContent=j.offers.length;
+    if(typeof j.costEUR==='number'&&j.costEUR>0)document.getElementById('agStatCoste').textContent=j.costEUR.toFixed(2).replace('.',',')+' €';
+  }).catch(function(){});
+  </script>
+
+
+  <!-- ════════════════════════════════════════════════════════ -->
   <!-- SECTION 5 — PROYECTOS                                   -->
   <!-- ════════════════════════════════════════════════════════ -->
   <section id="proyectos-section">
@@ -2686,8 +2744,32 @@
 
     <div class="carousel-wrapper" id="carouselWrapper" style="perspective: 1200px;">
 
-      <!-- Carta 0: Asistente RAG · Transportes RAG -->
+      <!-- Carta 0 (nueva, primera): Agencia de Empleo IA -->
       <div class="proj-card" data-index="0" data-pos="0"
+           data-title="AGENCIA DE EMPLEO IA"
+           data-desc="Un equipo de agentes (n8n + IA + Telegram) que me busca empleo cada noche por céntimos. Uso IA solo para puntuar y escribir; lo demás son reglas. Más barato y fiable que los agentes autónomos de moda. Incluye una torre pixel que reproduce el turno real."
+           data-tag="AUTOMATIZACIÓN · N8N + IA"
+           data-url="proyecto-agencia.html"
+           data-cta="VER EL CASO COMPLETO →"
+           data-img="media/agencia/torre.png">
+        <img src="media/agencia/torre.png" alt="Agencia de Empleo IA">
+        <div class="proj-card-info">
+          <div>
+            <div class="proj-card-tag">AUTOMATIZACIÓN · N8N + IA</div>
+            <div class="proj-card-title">AGENCIA DE EMPLEO IA</div>
+            <div class="proj-card-desc">AGENTES N8N + IA + TELEGRAM · MI BÚSQUEDA DE EMPLEO POR CÉNTIMOS</div>
+          </div>
+          <div class="proj-card-footer">
+            <span class="proj-card-link">VER PROYECTO →</span>
+            <div class="proj-card-arrow">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carta 0: Asistente RAG · Transportes RAG -->
+      <div class="proj-card" data-index="1" data-pos="1"
            data-title="ASISTENTE RAG · TRANSPORTES RAG"
            data-desc="IA GENERATIVA · RAG · PYTHON · LANGCHAIN · CHROMADB · CLAUDE · GEMINI · STREAMLIT"
            data-tag="IA GENERATIVA · RAG"
@@ -2712,7 +2794,7 @@
       </div>
 
       <!-- Carta 1: Cercanos -->
-      <div class="proj-card" data-index="1" data-pos="1"
+      <div class="proj-card" data-index="2" data-pos="2"
            data-title="CERCANOS"
            data-desc="APP MARKETPLACE DE SERVICIOS LOCALES · EMERGENT · LEAFLET · OPENSTREETMAP"
            data-tag="APP WEB · MARKETPLACE"
@@ -2735,7 +2817,7 @@
       </div>
 
       <!-- Carta 2: AG Nutrición -->
-      <div class="proj-card" data-index="2" data-pos="2"
+      <div class="proj-card" data-index="3" data-pos="3"
            data-title="AG NUTRICIÓN"
            data-desc="WEB PROFESIONAL PARA DIETISTA-NUTRICIONISTA · NEXT.JS · VERCEL"
            data-tag="WEB CLIENTE · NUTRICIÓN"
@@ -2758,7 +2840,7 @@
       </div>
 
       <!-- Carta 3: Aquaplum -->
-      <div class="proj-card" data-index="3" data-pos="-1"
+      <div class="proj-card" data-index="4" data-pos="3"
            data-title="AQUAPLUM"
            data-desc="WEB PARA EMPRESA DE FONTANERÍA EN SEVILLA · NEXT.JS · VERCEL"
            data-tag="WEB CLIENTE · FONTANERÍA"
@@ -2781,7 +2863,7 @@
       </div>
 
       <!-- Carta 4: FacturaPro -->
-      <div class="proj-card" data-index="4" data-pos="-1"
+      <div class="proj-card" data-index="5" data-pos="3"
            data-title="FACTURAPRO"
            data-desc="SISTEMA DE FACTURACIÓN · JAVA · MYSQL · POO · GITHUB"
            data-tag="APP JAVA · FACTURACIÓN"
@@ -2804,7 +2886,7 @@
       </div>
 
       <!-- Carta 5: AtomicMind -->
-      <div class="proj-card" data-index="5" data-pos="-1"
+      <div class="proj-card" data-index="6" data-pos="3"
            data-title="ATOMICMIND"
            data-desc="PROYECTO FIN DE GRADO · IA · SOSTENIBILIDAD · GITHUB"
            data-tag="TFG · IA & SOSTENIBILIDAD"
@@ -2827,7 +2909,7 @@
       </div>
 
       <!-- Carta 6: Este Portfolio -->
-      <div class="proj-card" data-index="6" data-pos="-1"
+      <div class="proj-card" data-index="7" data-pos="3"
            data-title="ESTE PORTFOLIO"
            data-desc="PORTFOLIO PERSONAL · HTML · TAILWIND · ANIMACIONES · VERCEL"
            data-tag="WEB PERSONAL · PORTFOLIO"
@@ -2850,7 +2932,7 @@
       </div>
 
       <!-- Carta 7: Carpintería Hijos de José Soto -->
-      <div class="proj-card" data-index="7" data-pos="-1"
+      <div class="proj-card" data-index="8" data-pos="3"
            data-title="CARPINTERÍA HIJOS DE JOSÉ SOTO"
            data-desc="WEB PARA CARPINTERÍA FAMILIAR · NEXT.JS · TAILWIND · VERCEL · EL VISO DEL ALCOR"
            data-tag="WEB CLIENTE · CARPINTERÍA"
@@ -2873,7 +2955,7 @@
       </div>
 
       <!-- Carta 8: Asignación de rutas (n8n) -->
-      <div class="proj-card" data-index="8" data-pos="-1"
+      <div class="proj-card" data-index="9" data-pos="3"
            data-title="ASIGNACIÓN DE RUTAS"
            data-desc="AUTOMATIZACIÓN LOGÍSTICA DIARIA · N8N · GOOGLE SHEETS · GMAIL"
            data-tag="AUTOMATIZACIÓN · N8N"
@@ -2896,7 +2978,7 @@
       </div>
 
       <!-- Carta 9: Recordatorios de cobros (n8n) -->
-      <div class="proj-card" data-index="9" data-pos="-1"
+      <div class="proj-card" data-index="10" data-pos="3"
            data-title="RECORDATORIOS DE COBROS"
            data-desc="GESTIÓN AUTOMÁTICA DE FACTURAS VENCIDAS · N8N · GMAIL · IA"
            data-tag="AUTOMATIZACIÓN · N8N"
@@ -2919,7 +3001,7 @@
       </div>
 
       <!-- Carta 10: Cadena de pedido con IA (n8n) -->
-      <div class="proj-card" data-index="10" data-pos="-1"
+      <div class="proj-card" data-index="11" data-pos="3"
            data-title="CADENA DE PEDIDO CON IA"
            data-desc="PROCESAMIENTO DE PEDIDOS POR EMAIL CON CLAUDE IA · N8N · GOOGLE SHEETS"
            data-tag="AUTOMATIZACIÓN · IA · N8N"
@@ -2942,7 +3024,7 @@
       </div>
 
       <!-- Carta 11: Integración Odoo-n8n -->
-      <div class="proj-card" data-index="11" data-pos="-2"
+      <div class="proj-card" data-index="12" data-pos="-2"
            data-title="INTEGRACIÓN ODOO-N8N"
            data-desc="CONEXIÓN CON ERP REAL VÍA API REST · STOCK, PEDIDOS Y ALERTAS"
            data-tag="AUTOMATIZACIÓN · N8N + ERP"
@@ -2968,7 +3050,7 @@
       </div>
 
       <!-- Carta 12: Pedidos por WhatsApp con IA -->
-      <div class="proj-card" data-index="12" data-pos="-1"
+      <div class="proj-card" data-index="13" data-pos="-1"
            data-title="PEDIDOS POR WHATSAPP CON IA"
            data-desc="CLAUDE API · VERIFICACIÓN STOCK EN ODOO · VENTAS Y COMPRAS AUTOMÁTICAS"
            data-tag="AUTOMATIZACIÓN · IA · WHATSAPP · ERP"
@@ -3014,6 +3096,7 @@
         <div class="carousel-dot" data-dot="10"></div>
         <div class="carousel-dot" data-dot="11"></div>
         <div class="carousel-dot" data-dot="12"></div>
+        <div class="carousel-dot" data-dot="13"></div>
       </div>
       <button class="carousel-btn" id="nextBtn" aria-label="Siguiente">
         <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -4331,7 +4414,7 @@
 
 <div class="latest-popup" id="latestPopup">
   <div style="position:relative;">
-    <img class="popup-preview-img" src="img-transportes-rag.png" alt="Asistente RAG · Transportes RAG">
+    <img class="popup-preview-img" src="media/agencia/torre.png" alt="Agencia de Empleo IA">
     <div class="popup-badge">
       <div class="popup-badge-dot"></div>
       ÚLTIMO PROYECTO
@@ -4340,9 +4423,9 @@
   </div>
   <div class="popup-body">
     <div class="popup-label">🚀 Recién subido</div>
-    <div class="popup-title">ASISTENTE RAG ·<br>TRANSPORTES RAG</div>
+    <div class="popup-title">AGENCIA DE<br>EMPLEO IA</div>
     <div class="popup-desc">
-      IA GENERATIVA · RAG · PYTHON · LANGCHAIN · CHROMADB · STREAMLIT
+      Nuevo: mi agencia de IA busca empleo sola cada noche
     </div>
     <div class="popup-actions">
       <button class="popup-btn-yes" id="latestPopupYes">
@@ -4512,20 +4595,7 @@
   btnYes.addEventListener('click', () => {
     closePopup();
     setTimeout(() => {
-      const targetCard = document.querySelector('[data-img="img-transportes-rag.png"]');
-      if (targetCard) {
-        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        setTimeout(() => {
-          // El carrusel solo abre el lightbox si la carta ya está centrada
-          // (data-pos="0"); si está lateral, el primer click la centra.
-          if (targetCard.getAttribute('data-pos') !== '0') {
-            targetCard.click();
-          }
-          setTimeout(() => {
-            targetCard.click();
-          }, 500);
-        }, 600);
-      }
+      window.location.href = 'proyecto-agencia.html';
     }, 350);
   });
 
