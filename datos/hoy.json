@@ -1,123 +1,42 @@
 {
-  "fecha": "2026-11-17",
-  "start": "23:47:45",
-  "durationSec": 203,
-  "costEUR": 0.072,
+  "fecha": "2026-11-19",
+  "start": "22:44:48",
+  "durationSec": 961,
+  "costEUR": 0,
   "resumen": {
-    "leidas": 0,
-    "puntuadas": 154,
-    "descartadas": 23,
-    "cartas": 6,
+    "leidas": 82,
+    "puntuadas": 0,
+    "descartadas": 11,
+    "cartas": 0,
     "enviadas": 10
   },
   "offers": [
     {
-      "title": "Analista Programador/a Python - GCP e IA",
+      "title": "DESARROLLADOR/A FULLSTACK EN VALENCIA",
       "sector": "",
-      "place": "remoto",
-      "source": "Tecnoempleo",
-      "score": 75,
-      "why": "Python, GCP e IA en remoto, encaja con automatización e IA",
-      "discard": null
-    },
-    {
-      "title": "Analista Programador/a Python – Flask | Google Cloud & IA Generativa/ 100% teletrabajo",
-      "sector": "",
-      "place": "Madrid · remoto",
-      "source": "InfoJobs",
-      "score": 75,
-      "why": "Python Flask, Google Cloud e IA generativa en remoto",
-      "discard": null
-    },
-    {
-      "title": "Analista Programador/a Python – Flask | Google Cloud & IA Generativa/ 100% teletrabajo",
-      "sector": "",
-      "place": "Madrid · remoto",
-      "source": "InfoJobs",
-      "score": 75,
-      "why": "Python Flask, Google Cloud e IA generativa en remoto",
-      "discard": null
-    },
-    {
-      "title": "Ingeniería Informática Junior – Software, Datos e Inteligencia Artificial",
-      "sector": "",
-      "place": "España · remoto",
-      "source": "LinkedIn",
-      "score": 72,
-      "why": "Junior en IA y datos, remoto; encaje directo con tu perfil.",
-      "discard": null
-    },
-    {
-      "title": "Ingeniero de Machine Learning – LLM y Agentes de IA",
-      "sector": "",
-      "place": "Sevilla · híbrido",
-      "source": "LinkedIn",
-      "score": 72,
-      "why": "Ingeniero ML con LLM y agentes en Sevilla; encaje directo con tu perfil.",
-      "discard": null
-    },
-    {
-      "title": "Full Stack Developer | Python, AI, Robotics & VR",
-      "sector": "",
-      "place": "Sevilla · híbrido",
-      "source": "InfoJobs",
-      "score": 70,
-      "why": "Python e IA en Sevilla híbrido, cerca de mi zona",
-      "discard": null
-    },
-    {
-      "title": "Técnico/a de Sistemas y Automatización (remoto)",
-      "sector": "",
-      "place": "remoto",
-      "source": "Tecnoempleo",
-      "score": 68,
-      "why": "Técnico de sistemas y automatización remoto, sector industrial, encaje alto",
-      "discard": null
-    },
-    {
-      "title": "AI Architect and Software Architect (100% Remoto)",
-      "sector": "",
-      "place": "España · remoto",
-      "source": "",
-      "score": 65,
-      "why": "AI Architect remoto; arquitectura senior y experiencia alta exigida, pero encaja en IA.",
-      "discard": null
-    },
-    {
-      "title": "Analista Programador/a Python + IA Generativa (Flask/GCP) | Madrid",
-      "sector": "",
-      "place": "España · remoto",
-      "source": "LinkedIn",
-      "score": 65,
-      "why": "Programador Python con IA generativa remoto; combina Python y LLMs, muy alineado.",
-      "discard": null
-    },
-    {
-      "title": "SOFTWARE DEVELOPER.NET",
-      "sector": "",
-      "place": "Barberà del Vallès · presencial",
+      "place": "Valencia · presencial",
       "source": "InfoJobs",
       "score": null,
       "why": null,
       "discard": "Regla: presencial fuera de la provincia de Sevilla"
     },
     {
-      "title": "Head of Enterprise Sales",
+      "title": "Application Engineer (bilingüe italiano)",
       "sector": "",
-      "place": "Tres Cantos · híbrido",
+      "place": "Pamplona/Iruña · presencial",
+      "source": "InfoJobs",
+      "score": null,
+      "why": null,
+      "discard": "Regla: inglés C1/C2, nativo o bilingüe"
+    },
+    {
+      "title": "Copy Comercial B2B - Desarrollo de Negocio y Captación | Álava",
+      "sector": "",
+      "place": "Vitoria-Gasteiz · presencial",
       "source": "InfoJobs",
       "score": null,
       "why": null,
       "discard": "Regla: comercial/ventas o atención al cliente sin parte técnica"
-    },
-    {
-      "title": "Analista Programador / Desarrollador de Software (H/M)",
-      "sector": "",
-      "place": "Vilafant · presencial",
-      "source": "InfoJobs",
-      "score": null,
-      "why": null,
-      "discard": "Regla: presencial fuera de la provincia de Sevilla"
     }
   ]
 }
